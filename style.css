@@ -88,6 +88,8 @@ body {
     justify-content: center;
     width: 100%;
     padding-top: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .pokemonSpriteContainer {
@@ -98,4 +100,55 @@ body {
 
 .pokemonSpriteContainer img {
     width: 340px;
+}
+
+.no-border {
+    border: none !important;
+    border-bottom: none !important;
+}
+
+.space-between {
+    justify-content: space-between !important;
+}
+
+.bg-white {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.c-black {
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.nav-item a {
+    color: black !important;
+}
+
+.nav-item a:hover {
+    color: black !important;
+    text-decoration: underline;
+}
+
+.active {
+    background-color: white !important;
+    text-decoration: underline !important;
+    text-decoration-color: blue !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 22px;
+}
+.card-header {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    z-index: 1000 !important;
+}
+.card-body {
+    box-shadow: 0px -2px 0px #f1f1f1;
+    z-index: 999 !important;
+    position: relative;
+    top: 2px;
 }
