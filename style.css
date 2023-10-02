@@ -218,7 +218,6 @@ body {
 }
 .info-mid {
     text-align: start;
-    padding-left: 30px;
     padding-right: 30px;
 }
 .info-right {
@@ -227,7 +226,7 @@ body {
 }
 
 .info-values {
-    width: 45%;
+    width: 50%;
     text-align: start;
     display: flex;
     justify-content: space-between;
