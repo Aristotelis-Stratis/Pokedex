@@ -273,3 +273,6 @@ body {
 .background-rect {
     fill: lightgray;
 }
+.btn {
+    width: 125px !important;
+}
