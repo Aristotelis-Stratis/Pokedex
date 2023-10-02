@@ -109,6 +109,7 @@ body {
     display: flex;
     justify-content: center;
     position: relative;
+    top: 55px;
 }
 
 .pokemonSpriteContainer img {
@@ -146,8 +147,11 @@ body {
 }
 
 .nav-item a:hover {
-    color: black !important;
-    text-decoration: underline;
+    background-color: white !important;
+    text-decoration: underline !important;
+    text-decoration-color: blue !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 22px;
 }
 
 .active {
@@ -162,25 +166,36 @@ body {
     padding-left: 10px !important;
     padding-right: 10px !important;
     z-index: 1000 !important;
+    box-shadow: 0px 2px 0px #f1f1f1;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .card-body {
-    box-shadow: 0px -2px 0px #f1f1f1;
     z-index: 999 !important;
     position: relative;
     top: 2px;
     display: flex;
     flex-direction: row;
-    font-size: 15px;
+    font-size: 18px;
+    padding-top: 30px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
 }
 
 .card-body-title {
     text-align: start;
-    padding-left: 15px;
+    padding-top: 20px;
 }
 
 .card-body-title h2 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold !important;
 }
 
@@ -201,10 +216,22 @@ body {
     width: 35%;
     text-align: start;
 }
-
+.info-mid {
+    text-align: start;
+    padding-left: 30px;
+    padding-right: 30px;
+}
 .info-right {
     width: 65%;
     text-align: start;
+}
+
+.info-values {
+    width: 45%;
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    gap: 0px !important;
 }
 
 .gender {
@@ -223,4 +250,26 @@ body {
 .gender img {
     width: 15px;
     height: 15px;
+}
+
+.w-33 {
+    width: 33.3% !important;
+}
+
+.value-div {
+    height: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.line-red {
+    stroke: red;
+    background-color: grey;
+}
+
+.line-green {
+    stroke: green;
+}
+.background-rect {
+    fill: lightgray;
 }
