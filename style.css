@@ -216,10 +216,12 @@ body {
     width: 35%;
     text-align: start;
 }
+
 .info-mid {
     text-align: start;
     padding-right: 30px;
 }
+
 .info-right {
     width: 65%;
     text-align: start;
@@ -261,6 +263,7 @@ body {
     display: flex;
     align-items: center;
 }
+
 .line-red {
     stroke: red;
     background-color: grey;
@@ -269,9 +272,15 @@ body {
 .line-green {
     stroke: green;
 }
+
 .background-rect {
     fill: lightgray;
 }
+
 .btn {
     width: 125px !important;
+}
+
+.pokedex-entry {
+    /* display: none; */
 }

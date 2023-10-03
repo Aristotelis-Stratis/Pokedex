@@ -7,6 +7,7 @@
     <title>Pokedex</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="templates.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -21,52 +22,53 @@
 
 <body onload="loadPokemon()">
     <div class="content">
-        <div id="pokedex">
+        <div class="pokedex-entry">
+            <div id="pokedex">
 
-            <div class="navigation">
-                <img src="./img/arrow-left-white.png" alt="back">
-                <img src="./img/like.png" alt="like">
-            </div>
+                <div class="navigation">
+                    <img src="./img/arrow-left-white.png" alt="back">
+                    <img src="./img/like.png" alt="like">
+                </div>
 
 
-            <div class="pokemonNameContainer">
-                <h1 id="pokemonName">Name</h1>
-                <div class="pokemonNumberContainer">
-                    <p class="pokemonNumber" id="pokemonNumber">#123</p>
+                <div class="pokemonNameContainer">
+                    <h1 id="pokemonName">Name</h1>
+                    <div class="pokemonNumberContainer">
+                        <p class="pokemonNumber" id="pokemonNumber">#123</p>
+                    </div>
+                </div>
+                <div class="typeContainer">
+                    <button class="typeButton" id="typeOne">Fire</button> <button class="typeButton"
+                        id="typeTwo">Test</button>
+                </div>
+                <div class="pokemonSpriteContainer">
+                    <img id="pokemonSprite" src="" alt="Charmander">
                 </div>
             </div>
-            <div class="typeContainer">
-                <button class="typeButton" id="typeOne">Fire</button> <button class="typeButton"
-                    id="typeTwo">Test</button>
-            </div>
-            <div class="pokemonSpriteContainer">
-                <img id="pokemonSprite" src="" alt="Charmander">
-            </div>
-        </div>
 
 
-        <div class="info-container">
-            <div class="card text-center no-border c-black w-100">
-                <div class="card-header no-border bg-white">
-                    <ul class="nav nav-pills card-header-pills space-between bg-white">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Base Stats</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Evolutions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Moves</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-container" id="card-container">
+            <div class="info-container">
+                <div class="card text-center no-border c-black w-100">
+                    <div class="card-header no-border bg-white">
+                        <ul class="nav nav-pills card-header-pills space-between bg-white">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" onclick="loadAbout()">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Base Stats</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Evolutions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Moves</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-container" id="card-container">
 
-                    <!-- ABOUT -->
-                    <!-- <div class="card-body">
+                        <!-- ABOUT -->
+                        <!-- <div class="card-body">
                         <div class="pkmn-info info-left">
                             <p>Species</p>
                             <p>Height</p>
@@ -103,8 +105,8 @@
                         </div>
                     </div> -->
 
-                    <!-- BASE STATS -->
-                    <!-- <div class="card-body">
+                        <!-- BASE STATS -->
+                        <!-- <div class="card-body">
                         <div class="pkmn-info info-left">
                             <p>HP</p>
                             <p>Attack</p>
@@ -182,8 +184,8 @@
                         </div>
 
                     </div> -->
-                    <!-- EVOLUTIONS -->
-                    <!-- <div class="evolution-container">
+                        <!-- EVOLUTIONS -->
+                        <!-- <div class="evolution-container">
                         <div class="evolution"></div>
                         <div class="evolution"></div>
                         <div class="evolution"></div>
@@ -192,8 +194,8 @@
 
 
 
-                    <!-- ATTACK-MOVES -->
-                    <!-- <div class="card-body">
+                        <!-- ATTACK-MOVES -->
+                        <!-- <div class="card-body">
                         <div class="attack-container">
                             <button type="button" class="btn btn-outline-primary">Primary</button>
                             <button type="button" class="btn btn-outline-secondary">Secondary</button>
@@ -216,11 +218,11 @@
 
                         </div>
                     </div> -->
+                    </div>
                 </div>
+
             </div>
-
         </div>
-
     </div>
 
 

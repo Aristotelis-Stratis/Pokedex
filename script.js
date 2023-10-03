@@ -7,6 +7,7 @@ async function loadPokemon() {
 
     console.log('Loaded Pokemon', currentPokemon);
     renderPokemonInfo();
+    loadAbout();
 }
 
 
@@ -21,7 +22,7 @@ function renderPokemonName() {
     document.getElementById('pokemonName').innerHTML = capitalizedPokemonName;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const lines = document.querySelectorAll(".line");
 
     function updateLines() {
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 x2 = (wert / 540) * 100; // Anpassen der Breite der Linie basierend auf dem Wert (1-600)
             } else {
                 x2 = (wert / 90) * 100; // Anpassen der Breite der Linie basierend auf dem Wert (1-100)
-            }            line.setAttribute("x2", `${x2}%`);
+            } line.setAttribute("x2", `${x2}%`);
         });
     }
 
@@ -45,3 +46,9 @@ document.addEventListener("DOMContentLoaded", function() {
         pElement.addEventListener("input", updateLines);
     });
 });
+
+function loadAbout() {
+    let about = document.getElementById('card-container');
+    about.innerHTML = '';
+    about.innerHTML += templateAbout();
+}
