@@ -7,7 +7,6 @@ async function loadPokemon() {
 
     console.log('Loaded Pokemon', currentPokemon);
     renderPokemonInfo();
-    loadAbout();
 }
 
 
@@ -31,9 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const pElement = document.getElementById(valueId);
             const wert = parseFloat(pElement.textContent);
             if (valueId === "value_7") {
-                x2 = (wert / 540) * 100; // Anpassen der Breite der Linie basierend auf dem Wert (1-600)
+                x2 = (wert / 540) * 100;
             } else {
-                x2 = (wert / 90) * 100; // Anpassen der Breite der Linie basierend auf dem Wert (1-100)
+                x2 = (wert / 90) * 100;
             } line.setAttribute("x2", `${x2}%`);
         });
     }
@@ -51,4 +50,19 @@ function loadAbout() {
     let about = document.getElementById('card-container');
     about.innerHTML = '';
     about.innerHTML += templateAbout();
+}
+function loadStats() {
+    let stats = document.getElementById('card-container');
+    stats.innerHTML = '';
+    stats.innerHTML = templateStats();
+}
+
+function loadEvolutions() {
+
+}
+
+function loadMoves() {
+    let moves = document.getElementById('card-container');
+    moves.innerHTML = '';
+    moves.innerHTML = currentPokemon['moves'][0]['move']['name'];
 }
