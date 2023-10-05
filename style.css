@@ -11,6 +11,10 @@
     border: 2px solid red !important;
 }
 
+html {
+    background-color: #F5F5F6;
+}
+
 body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
@@ -224,7 +228,7 @@ body {
 }
 
 .info-mid {
-    text-align: start;
+    text-align: end;
     padding-right: 30px;
 }
 
@@ -307,8 +311,8 @@ body {
     justify-content: center;
     align-items: center;
     gap: 15px;
-    background-color: rgb(27,37,47);
-    color:white;
+    background-color: rgb(27, 37, 47);
+    color: white;
     height: 100px;
 }
 
@@ -321,7 +325,7 @@ body {
     max-width: 100% !important;
     padding-left: 125px !important;
     padding-right: 125px !important;
-    background-color: rgb(27,37,47);
+    background-color: rgb(27, 37, 47);
 }
 
 .pokedex-home {
