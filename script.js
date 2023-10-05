@@ -3,7 +3,7 @@ let allPokemon;
 let offset = 0;
 
 async function loadPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon/togekiss';
+    let url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur';
     let response = await fetch(url);
     currentPokemon = await response.json();
 
@@ -16,6 +16,7 @@ function renderPokemonInfo() {
     renderPokemonName();
     renderPokemonType();
     renderPokemonStats();
+    updateButtonColors();
     loadStats();
     document.getElementById('pokemonSprite').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 }
@@ -43,28 +44,8 @@ function renderPokemonStats() {
     let TOTAL = HP + ATTACK + DEFENSE + SP_ATTACK + SP_DEFENSE + SPEED;
     return { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL };
 }
-// =========================== RENDER STATS  (THIS IS WRONG)===========================
-document.addEventListener("DOMContentLoaded", function () {
-    const lines = document.querySelectorAll(".line");
-    function updateLines() {
-        lines.forEach(line => {
-            const valueId = line.getAttribute("data-value-id");
-            const pElement = document.getElementById(valueId);
-            const wert = parseFloat(pElement.textContent);
-            if (valueId === "value_7") {
-                x2 = (wert / 540) * 100;
-            } else {
-                x2 = (wert / 90) * 100;
-            } line.setAttribute("x2", `${x2}%`);
-        });
-    }
-    updateLines();
-    lines.forEach(line => {
-        const valueId = line.getAttribute("data-value-id");
-        const pElement = document.getElementById(valueId);
-        pElement.addEventListener("input", updateLines);
-    });
-});
+// =========================== RENDER STATS ===========================
+
 
 // =========================== LOAD CARD LINKS ===========================
 function loadAbout() {
@@ -102,3 +83,47 @@ function openTitleCard() {
 
 
 // =========================== SEARCH BAR ===========================
+
+
+
+
+
+const typeColors = {
+    "Normal": "#A8A77A",
+    "Kampf": "#C22E28",
+    "Flug": "#A98FF3",
+    "Gift": "#A33EA1",
+    "Boden": "#E2BF65",
+    "Gestein": "#B6A136",
+    "Käfer": "#A6B91A",
+    "Geist": "#735797",
+    "Stahl": "#B7B7CE",
+    "Feuer": "#EE8130",
+    "Wasser": "#6390F0",
+    "Grass": "#7AC74C",
+    "Elektro": "#F7D02C",
+    "Psycho": "#F95587",
+    "Eis": "#96D9D6",
+    "Drache": "#6F35FC",
+    "Unlicht": "#705746",
+    "Fee": "#D685AD"
+    // Weitere Typen und Farben hinzufügen...
+};
+
+function updateButtonColors(typeOne, typeTwo) {
+    const buttonOne = document.getElementById("typeOne");
+    const buttonTwo = document.getElementById("typeTwo");
+
+    if (typeOne in typeColors) {
+        buttonOne.style.backgroundColor = typeColors[typeOne];
+    } else {
+        // Standardfarbe oder Fehlerbehandlung, wenn der Typ nicht gefunden wurde
+        buttonOne.style.backgroundColor = "gray";
+    }
+
+    if (typeTwo in typeColors) {
+        buttonTwo.style.backgroundColor = typeColors[typeTwo];
+    } else {
+        buttonTwo.style.backgroundColor = "gray";
+    }
+}
