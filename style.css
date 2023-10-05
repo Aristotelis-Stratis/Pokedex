@@ -17,12 +17,15 @@ body {
 }
 
 #pokedex {
-    min-height: 50vh;
+    min-height: 60vh;
     background-color: #fb6c6c;
     color: white;
     display: flex;
     padding: 24px;
     flex-direction: column;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
 }
 
 #pokedex h1 {
@@ -96,13 +99,16 @@ body {
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     margin-top: -40px;
-    min-height: 100px;
     display: flex;
     justify-content: center;
     width: 100%;
+    height: 100%;
     padding-top: 50px;
     padding-left: 20px;
     padding-right: 20px;
+    padding-bottom: 50px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .pokemonSpriteContainer {
@@ -282,7 +288,16 @@ body {
 }
 
 .pokedex-entry {
-    /* display: none; */
+    scale: 60%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: 2px solid green;
+    border-radius: 20px;
 }
 
 /*MAIN PAGE*/
@@ -292,7 +307,8 @@ body {
     justify-content: center;
     align-items: center;
     gap: 15px;
-    background-color: #fb6c6c;
+    background-color: rgb(27,37,47);
+    color:white;
     height: 100px;
 }
 
@@ -305,14 +321,14 @@ body {
     max-width: 100% !important;
     padding-left: 125px !important;
     padding-right: 125px !important;
-    background-color: #fb6c6c;
+    background-color: rgb(27,37,47);
 }
 
 .pokedex-home {
     display: flex;
     position: relative;
     top: 60px;
-    background-color: aqua;
+    background-color: rgb(10, 20, 30);
     max-width: 100% !important;
     padding-left: 125px !important;
     padding-right: 125px !important;
@@ -323,11 +339,12 @@ body {
 .col {
     border: 2px solid black;
     border-radius: 20px;
-    width: 250px !important;
+    width: 225px !important;
     height: 350px !important;
     background-color: #4ad9b0;
-    z-index:1000;
+    z-index: 1000;
 }
+
 .colNameContainer {
     display: flex;
     width: 100%;
@@ -336,10 +353,12 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+
 .colNameContainer h2 {
     color: white;
     font-size: 24px;
 }
+
 .colNumberContainer {
     display: flex;
     flex-direction: column;
@@ -352,7 +371,8 @@ body {
 .colNumber {
     font-weight: bold;
     margin-block-start: 0;
-
+    color: white;
+    font-size: 14px;
 }
 
 .colTypeContainer {
@@ -366,15 +386,21 @@ body {
     justify-content: center;
     position: relative;
     top: 15px;
-    z-index:1001;
+    z-index: 1001;
 }
+
 .colSpriteContainer img {
     width: 140px;
 }
+
 .pkmnIcon {
-    display:flex;
+    display: flex;
     position: relative;
     bottom: 150px;
     justify-content: center;
-    z-index:999;
+    z-index: 999;
+}
+
+.row {
+    gap: 10px;
 }
