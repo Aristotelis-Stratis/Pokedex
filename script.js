@@ -2,6 +2,27 @@ let currentPokemon;
 let allPokemon;
 let offset = 0;
 
+const typeColors = {
+    "normal": "#A8A77A",
+    "fire": "#EE8130",
+    "water": "#6390F0",
+    "electric": "#F7D02C",
+    "grass": "#7AC74C",
+    "ice": "#96D9D6",
+    "fighting": "#C22E28",
+    "poison": "#A33EA1",
+    "ground": "#E2BF65",
+    "flying": "#A98FF3",
+    "psychic": "#F95587",
+    "bug": "#A6B91A",
+    "rock": "#B6A136",
+    "ghost": "#735797",
+    "steel": "#B7B7CE",
+    "dragon": "#6F35FC",
+    "dark": "#705746",
+    "fairy": "#D685AD"
+};
+
 async function loadPokemon() {
     let url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur';
     let response = await fetch(url);
@@ -16,7 +37,6 @@ function renderPokemonInfo() {
     renderPokemonName();
     renderPokemonType();
     renderPokemonStats();
-    updateButtonColors();
     loadStats();
     document.getElementById('pokemonSprite').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 }
@@ -30,9 +50,16 @@ function renderPokemonName() {
 function renderPokemonType() {
     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
     let pokemonType_2 = currentPokemon['types'][1]['type']['name'];
-    document.getElementById('typeOne').innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
-    document.getElementById('typeTwo').innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
-}
+
+    let typeOneButton = document.getElementById('typeOne');
+    let typeTwoButton = document.getElementById('typeTwo');
+
+    typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
+    typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
+
+    typeOneButton.style.backgroundColor = typeColors[pokemonType_1]; 
+    typeTwoButton.style.backgroundColor = typeColors[pokemonType_2];
+  }
 
 function renderPokemonStats() {
     let HP = currentPokemon['stats'][0]['base_stat'];
@@ -83,47 +110,3 @@ function openTitleCard() {
 
 
 // =========================== SEARCH BAR ===========================
-
-
-
-
-
-const typeColors = {
-    "Normal": "#A8A77A",
-    "Kampf": "#C22E28",
-    "Flug": "#A98FF3",
-    "Gift": "#A33EA1",
-    "Boden": "#E2BF65",
-    "Gestein": "#B6A136",
-    "Käfer": "#A6B91A",
-    "Geist": "#735797",
-    "Stahl": "#B7B7CE",
-    "Feuer": "#EE8130",
-    "Wasser": "#6390F0",
-    "Grass": "#7AC74C",
-    "Elektro": "#F7D02C",
-    "Psycho": "#F95587",
-    "Eis": "#96D9D6",
-    "Drache": "#6F35FC",
-    "Unlicht": "#705746",
-    "Fee": "#D685AD"
-    // Weitere Typen und Farben hinzufügen...
-};
-
-function updateButtonColors(typeOne, typeTwo) {
-    const buttonOne = document.getElementById("typeOne");
-    const buttonTwo = document.getElementById("typeTwo");
-
-    if (typeOne in typeColors) {
-        buttonOne.style.backgroundColor = typeColors[typeOne];
-    } else {
-        // Standardfarbe oder Fehlerbehandlung, wenn der Typ nicht gefunden wurde
-        buttonOne.style.backgroundColor = "gray";
-    }
-
-    if (typeTwo in typeColors) {
-        buttonTwo.style.backgroundColor = typeColors[typeTwo];
-    } else {
-        buttonTwo.style.backgroundColor = "gray";
-    }
-}
