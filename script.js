@@ -24,7 +24,7 @@ const typeColors = {
 };
 
 async function loadPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon/venusaur';
+    let url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur ';
     let response = await fetch(url);
     currentPokemon = await response.json();
 
@@ -37,16 +37,19 @@ function renderPokemonInfo() {
     renderPokemonName();
     renderPokemonType();
     renderPokemonStats();
-    loadStats();
+    loadAbout();
+    renderAbout();
     document.getElementById('pokemonSprite').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 }
 
 function renderPokemonName() {
     let pokemonName = currentPokemon['name'];
+    let pokemonNumber = currentPokemon['order'];
     capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
     document.getElementById('pokemonName').innerHTML = capitalizedPokemonName;
+    document.getElementById('pokemonNumber').innerHTML = '#' + pokemonNumber;
 }
-
+// =========================== RENDER TYPE ===========================
 function renderPokemonType() {
     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
     let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
@@ -62,7 +65,18 @@ function renderPokemonType() {
     }
     if (pokemonType_2) {
         typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
+    } else {
+        typeTwoButton.style.display = 'none';
     }
+}
+// =========================== RENDER ABOUT ===========================
+function renderAbout() {
+    let height = currentPokemon['height'];
+    let weight = currentPokemon['weight'];
+    let abilities = currentPokemon['abilities'][0]['ability']['name'];
+    document.getElementById('height').innerHTML = height / 10 + ' m';
+    document.getElementById('weight').innerHTML = weight / 10 + ' kg';
+    document.getElementById('abilities').innerHTML = abilities.charAt(0).toUpperCase() + abilities.slice(1); ;
 }
 
 // =========================== RENDER STATS ===========================
@@ -83,6 +97,7 @@ function loadAbout() {
     about.innerHTML = '';
     about.innerHTML += templateAbout();
 }
+
 function loadStats() {
     let stats = document.getElementById('card-container');
     stats.innerHTML = '';
