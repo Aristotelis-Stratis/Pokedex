@@ -3,28 +3,28 @@ let allPokemon;
 let offset = 0;
 
 const typeColors = {
-    "normal": "#A8A77A",
-    "fire": "#EE8130",
-    "water": "#6390F0",
-    "electric": "#F7D02C",
-    "grass": "#7AC74C",
-    "ice": "#96D9D6",
-    "fighting": "#C22E28",
-    "poison": "#A33EA1",
-    "ground": "#E2BF65",
-    "flying": "#A98FF3",
-    "psychic": "#F95587",
-    "bug": "#A6B91A",
-    "rock": "#B6A136",
-    "ghost": "#735797",
-    "steel": "#B7B7CE",
-    "dragon": "#6F35FC",
-    "dark": "#705746",
-    "fairy": "#D685AD"
+    "normal": "rgba(168, 167, 122, 1)",
+    "fire": "rgba(238, 129, 48, 1)",
+    "water": "rgba(99, 144, 240, 1)",
+    "electric": "rgba(247, 208, 44, 1)",
+    "grass": "rgba(122, 199, 76, 1)",
+    "ice": "rgba(150, 217, 214, 1)",
+    "fighting": "rgba(194, 46, 40, 1)",
+    "poison": "rgba(163, 62, 161, 1)",
+    "ground": "rgba(226, 191, 101, 1)",
+    "flying": "rgba(169, 143, 243, 1)",
+    "psychic": "rgba(249, 85, 135, 1)",
+    "bug": "rgba(166, 185, 26, 1)",
+    "rock": "rgba(182, 161, 54, 1)",
+    "ghost": "rgba(115, 87, 151, 1)",
+    "steel": "rgba(183, 183, 206, 1)",
+    "dragon": "rgba(111, 53, 252, 1)",
+    "dark": "rgba(112, 87, 70, 1)",
+    "fairy": "rgba(214, 133, 173, 1)"
 };
 
 async function loadPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur';
+    let url = 'https://pokeapi.co/api/v2/pokemon/venusaur';
     let response = await fetch(url);
     currentPokemon = await response.json();
 
@@ -49,18 +49,23 @@ function renderPokemonName() {
 
 function renderPokemonType() {
     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
-    let pokemonType_2 = currentPokemon['types'][1]['type']['name'];
-
+    let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
     let typeOneButton = document.getElementById('typeOne');
     let typeTwoButton = document.getElementById('typeTwo');
-
+    let backgroundColor = document.getElementById('pokedex');
+    const darkerBackgroundColor = typeColors[pokemonType_1].replace("1)", "0.6");
     typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
     typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
+    backgroundColor.style.backgroundColor = darkerBackgroundColor;
+    if (pokemonType_1) {
+        typeOneButton.style.backgroundColor = typeColors[pokemonType_1].replace("1)", "0.8)");
+    }
+    if (pokemonType_2) {
+        typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
+    }
+}
 
-    typeOneButton.style.backgroundColor = typeColors[pokemonType_1]; 
-    typeTwoButton.style.backgroundColor = typeColors[pokemonType_2];
-  }
-
+// =========================== RENDER STATS ===========================
 function renderPokemonStats() {
     let HP = currentPokemon['stats'][0]['base_stat'];
     let ATTACK = currentPokemon['stats'][1]['base_stat'];
@@ -71,8 +76,6 @@ function renderPokemonStats() {
     let TOTAL = HP + ATTACK + DEFENSE + SP_ATTACK + SP_DEFENSE + SPEED;
     return { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL };
 }
-// =========================== RENDER STATS ===========================
-
 
 // =========================== LOAD CARD LINKS ===========================
 function loadAbout() {

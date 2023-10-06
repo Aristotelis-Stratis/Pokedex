@@ -119,11 +119,11 @@ body {
     display: flex;
     justify-content: center;
     position: relative;
-    top: 55px;
+    top: 0px;
 }
 
 .pokemonSpriteContainer img {
-    width: 340px;
+    width: auto;
 }
 
 .no-border {
