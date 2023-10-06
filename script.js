@@ -41,7 +41,7 @@ function renderPokemonInfo() {
     renderAbout();
     document.getElementById('pokemonSprite').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 }
-
+// =========================== RENDER NAME ===========================
 function renderPokemonName() {
     let pokemonName = currentPokemon['name'];
     let pokemonNumber = currentPokemon['order'];
@@ -76,7 +76,7 @@ function renderAbout() {
     let abilities = currentPokemon['abilities'][0]['ability']['name'];
     document.getElementById('height').innerHTML = height / 10 + ' m';
     document.getElementById('weight').innerHTML = weight / 10 + ' kg';
-    document.getElementById('abilities').innerHTML = abilities.charAt(0).toUpperCase() + abilities.slice(1); ;
+    document.getElementById('abilities').innerHTML = abilities.charAt(0).toUpperCase() + abilities.slice(1);;
 }
 
 // =========================== RENDER STATS ===========================
@@ -90,6 +90,16 @@ function renderPokemonStats() {
     let TOTAL = HP + ATTACK + DEFENSE + SP_ATTACK + SP_DEFENSE + SPEED;
     return { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL };
 }
+
+// =========================== RENDER MOVES ===========================
+// function renderMoves() {
+//     let movesContainer = document.getElementById('moves-container');
+//     for (let i = 0; i < currentPokemon['moves']['length']; i++) {
+//         movesContainer.innerHTML += ``;
+
+//     }
+// }
+
 
 // =========================== LOAD CARD LINKS ===========================
 function loadAbout() {
@@ -112,7 +122,7 @@ function loadEvolutions() {
 function loadMoves() {
     let moves = document.getElementById('card-container');
     moves.innerHTML = '';
-    moves.innerHTML = currentPokemon['moves'][0]['move']['name'];
+    moves.innerHTML = templateMoves();
 }
 
 // =========================== OPEN CARD ===========================
@@ -128,3 +138,29 @@ function openTitleCard() {
 
 
 // =========================== SEARCH BAR ===========================
+
+
+
+
+// =========================== LIKE ===========================
+function like(){
+    let like = document.getElementById('like');
+    let likeImg = './img/like.png';
+    let likeFullImg = './img/like_full.png';
+
+    if (like.getAttribute('src') === likeImg){
+        like.setAttribute('src', likeFullImg);
+        localStorage.setItem('likeStatus', 'liked');
+    } else {
+        like.src = likeImg;
+        localStorage.removeItem('likeStatus');
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    let like = document.getElementById('like');
+    let likeStatus = localStorage.getItem('likeStatus');
+
+    if (likeStatus === 'liked') {
+        like.setAttribute('src', './img/like_full.png');
+    }
+});
