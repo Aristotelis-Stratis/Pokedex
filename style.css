@@ -154,6 +154,7 @@ body {
 } */
 .nav-item a {
     color: black !important;
+    font-size: 20px !important;
 }
 
 .nav-item a:hover {
@@ -242,8 +243,8 @@ body {
     width: 50%;
     text-align: start;
     display: flex;
-    justify-content: space-between;
-    gap: 0px !important;
+    justify-content: space-evenly;
+    gap: 20px !important;
 }
 
 .gender {
@@ -303,6 +304,7 @@ body {
     bottom: 0;
     border: 2px solid green;
     border-radius: 20px;
+    z-index: 1001;
 }
 
 /*MAIN PAGE*/

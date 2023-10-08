@@ -24,7 +24,7 @@ const typeColors = {
 };
 
 async function loadPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon/venusaur ';
+    let url = 'https://pokeapi.co/api/v2/pokemon/charmander ';
     let response = await fetch(url);
     currentPokemon = await response.json();
 
@@ -37,7 +37,6 @@ function renderPokemonInfo() {
     renderPokemonName();
     renderPokemonType();
     renderPokemonStats();
-    loadAbout();
     renderAbout();
     document.getElementById('pokemonSprite').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 }
@@ -71,12 +70,14 @@ function renderPokemonType() {
 }
 // =========================== RENDER ABOUT ===========================
 function renderAbout() {
+    let about = document.getElementById('card-container');
     let height = currentPokemon['height'];
     let weight = currentPokemon['weight'];
     let abilities = currentPokemon['abilities'][0]['ability']['name'];
+    about.innerHTML = templateAbout();
     document.getElementById('height').innerHTML = height / 10 + ' m';
     document.getElementById('weight').innerHTML = weight / 10 + ' kg';
-    document.getElementById('abilities').innerHTML = abilities.charAt(0).toUpperCase() + abilities.slice(1);;
+    document.getElementById('abilities').innerHTML = abilities.charAt(0).toUpperCase() + abilities.slice(1);
 }
 
 // =========================== RENDER STATS ===========================
@@ -102,11 +103,11 @@ function renderPokemonStats() {
 
 
 // =========================== LOAD CARD LINKS ===========================
-function loadAbout() {
-    let about = document.getElementById('card-container');
-    about.innerHTML = '';
-    about.innerHTML += templateAbout();
-}
+// function loadAbout() {
+//     let about = document.getElementById('card-container');
+//     about.innerHTML = '';
+//     about.innerHTML += templateAbout();
+// }
 
 function loadStats() {
     let stats = document.getElementById('card-container');
@@ -126,12 +127,16 @@ function loadMoves() {
 }
 
 // =========================== OPEN CARD ===========================
-// function openTitleCard() {
-//     let content = document.getElementById('content');
-//     content.innerHTML += templateTitleCard();
-// }
+function openCard() {
+    let entry = document.getElementById('entry');
+    entry.style.display = "flex";
+}
 
 // =========================== CLOSE CARD ===========================
+function closeCard() {
+    let entry = document.getElementById('entry');
+    entry.style.display = "none";
+}
 
 
 // =========================== LOAD MORE WITH SCROLL ===========================
@@ -143,12 +148,12 @@ function loadMoves() {
 
 
 // =========================== LIKE ===========================
-function like(){
+function like() {
     let like = document.getElementById('like');
     let likeImg = './img/like.png';
     let likeFullImg = './img/like_full.png';
 
-    if (like.getAttribute('src') === likeImg){
+    if (like.getAttribute('src') === likeImg) {
         like.setAttribute('src', likeFullImg);
         localStorage.setItem('likeStatus', 'liked');
     } else {

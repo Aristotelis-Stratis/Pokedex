@@ -1,4 +1,6 @@
-function templateAbout() {
+function templateAbout(height, weight, abilities) {
+    let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
+    type = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
     return `                        
 <div class="card-body">
     <div class="pkmn-info info-left">
@@ -7,9 +9,31 @@ function templateAbout() {
         <p>Abilities</p>
     </div>
     <div class="pkmn-info info-right">
-        <p id="height">23cm</p>
-        <p id="weight">23kg</p>
-        <p id="abilities"></p>
+        <p id="height">${height}</p>
+        <p id="weight">${weight}</p>
+        <p id="abilities">${abilities}</p>
+    </div>
+</div>
+<div class="card-body-title">
+    <h2>Breeding</h2>
+</div>
+<div class="card-body">
+    <div class="pkmn-info info-left">
+        <p>Gender</p>
+        <p>Egg Groups</p>
+        <p>Egg Cycle</p>
+    </div>
+    <div class="pkmn-info info-right">
+        <div class="gender">
+            <div class="gender-container"><img src="./img/icons8-male-80 (1).png" alt="">
+                <p>50%</p>
+            </div>
+            <div class="gender-container"><img src="./img/icons8-female-80 (1).png" alt="">
+                <p>50%</p>
+            </div>
+        </div>
+        <p>Monster</p>
+        <p>${type}</p>
     </div>
 </div>
 `;
