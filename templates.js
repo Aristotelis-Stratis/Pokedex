@@ -37,60 +37,26 @@ function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL)
             <p id="value_7">${TOTAL}</p>
         </div>
         <div class="pkmn-info info-values">
-            <div class="value-div">
-                <svg width="100%" height="20">
-                    <rect class="background-rect" x="0" y="7" width="100%" height="5" />
-                    <line class="line line-red" data-value-id="value_1" x1="${HP}" y1="10" x2="0" y2="10"
-                    stroke="red" stroke-width="5" />
-                </svg>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: ${(HP / 255) * 100}%" aria-valuenow="${HP}" aria-valuemin="0" aria-valuemax="255"></div>
             </div>
-
-            <div class="value-div">
-                <svg width="100%" height="20">
-                    <rect class="background-rect" x="0" y="7" width="100%" height="5" />
-                    <line class="line line-green" data-value-id="value_2" x1="${ATTACK}" y1="10" x2="0" y2="10"
-                        stroke="red" stroke-width="5" />
-                </svg>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: ${(ATTACK / 255) * 100}%" aria-valuenow="${ATTACK}" aria-valuemin="0" aria-valuemax="255"></div>
             </div>
-
-            <div class="value-div">
-                <svg width="100%" height="20">
-                    <rect class="background-rect" x="0" y="7" width="100%" height="5" />
-                    <line class="line line-red" data-value-id="value_3" x1="${DEFENSE}" y1="10" x2="0" y2="10"
-                        stroke="red" stroke-width="5" />
-                </svg>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: ${(DEFENSE / 255) * 100}%" aria-valuenow="${DEFENSE}" aria-valuemin="0" aria-valuemax="255"></div>
             </div>
-
-            <div class="value-div">
-                <svg width="100%" height="20">
-                    <rect class="background-rect" x="0" y="7" width="100%" height="5" />
-                    <line class="line line-green" data-value-id="value_4" x1="${SP_ATTACK}" y1="10" x2="0" y2="10"
-                        stroke="red" stroke-width="5" />
-                </svg>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: ${(SP_ATTACK / 255) * 100}%" aria-valuenow="${SP_ATTACK}" aria-valuemin="0" aria-valuemax="255"></div>
             </div>
-
-            <div class="value-div">
-                <svg width="100%" height="20">
-                    <rect class="background-rect" x="0" y="7" width="100%" height="5" />
-                    <line class="line line-red" data-value-id="value_5" x1="${SP_DEFENSE}" y1="10" x2="0" y2="10"
-                        stroke="red" stroke-width="5" />
-                </svg>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: ${(SP_DEFENSE / 255) * 100}%" aria-valuenow="${SP_DEFENSE}" aria-valuemin="0" aria-valuemax="255"></div>
             </div>
-
-            <div class="value-div">
-                <svg width="100%" height="20">
-                    <rect class="background-rect" x="0" y="7" width="100%" height="5" />
-                    <line class="line line-green" data-value-id="value_6" x1="${SPEED}" y1="10" x2="0" y2="10"
-                        stroke="red" stroke-width="5" />
-                </svg>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: ${(SPEED / 255) * 100}%" aria-valuenow="${SPEED}" aria-valuemin="0" aria-valuemax="255"></div>
             </div>
-
-            <div class="value-div">
-                <svg width="100%" height="20">
-                    <rect class="background-rect" x="0" y="7" width="100%" height="5" />
-                    <line class="line line-red" data-value-id="value_7" x1="${TOTAL}" y1="10" x2="0" y2="10"
-                        stroke="red" stroke-width="5" />
-                </svg>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: ${(TOTAL / 720) * 100}%" aria-valuenow="${TOTAL}" aria-valuemin="0" aria-valuemax="720"></div>
             </div>
         </div>
     </div>`;

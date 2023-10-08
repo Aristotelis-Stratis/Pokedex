@@ -24,7 +24,7 @@ const typeColors = {
 };
 
 async function loadPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur ';
+    let url = 'https://pokeapi.co/api/v2/pokemon/venusaur ';
     let response = await fetch(url);
     currentPokemon = await response.json();
 
@@ -56,7 +56,7 @@ function renderPokemonType() {
     let typeOneButton = document.getElementById('typeOne');
     let typeTwoButton = document.getElementById('typeTwo');
     let backgroundColor = document.getElementById('pokedex');
-    const darkerBackgroundColor = typeColors[pokemonType_1].replace("1)", "0.6");
+    const darkerBackgroundColor = typeColors[pokemonType_1].replace("1)", "0.7");
     typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
     typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
     backgroundColor.style.backgroundColor = darkerBackgroundColor;
@@ -126,10 +126,10 @@ function loadMoves() {
 }
 
 // =========================== OPEN CARD ===========================
-function openTitleCard() {
-    let content = document.getElementById('content');
-    content.innerHTML += templateTitleCard();
-}
+// function openTitleCard() {
+//     let content = document.getElementById('content');
+//     content.innerHTML += templateTitleCard();
+// }
 
 // =========================== CLOSE CARD ===========================
 
