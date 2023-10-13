@@ -305,6 +305,7 @@ body {
     border: 2px solid green;
     border-radius: 20px;
     z-index: 1001;
+    max-width: 525px;
 }
 
 /*MAIN PAGE*/
@@ -333,13 +334,17 @@ body {
 
 .pokedex-home {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center !important;
+    justify-content: center !important;
     position: relative;
     top: 60px;
-    background-color: rgb(10, 20, 30);
+    background-color: rgb(10, 20, 30,20%);
     max-width: 100% !important;
     padding-left: 125px !important;
     padding-right: 125px !important;
-    justify-content: center;
+    column-gap: 35px;
+    row-gap: 15px;
 }
 
 /*titlecard*/
@@ -348,8 +353,11 @@ body {
     border-radius: 20px;
     width: 225px !important;
     height: 350px !important;
-    background-color: #4ad9b0;
     z-index: 1000;
+}
+
+.col:hover {
+    scale: 105%;
 }
 
 .colNameContainer {
