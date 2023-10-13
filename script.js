@@ -146,13 +146,13 @@ function loadMoves() {
 
 // =========================== OPEN CARD ===========================
 function openOverlay() {
-    let overlay = document.getElementById('overlay');
-    overlay.style.display = 'block';
+    let overlay = document.getElementById('card-overlay');
+    overlay.style.display = 'flex';
 }
 
 // =========================== CLOSE CARD ===========================
 function closeOverlay() {
-    let overlay = document.getElementById('overlay');
+    let overlay = document.getElementById('card-overlay');
     overlay.style.display = 'none';
 }
 
@@ -166,26 +166,24 @@ function closeOverlay() {
 
 
 // =========================== LIKE ===========================
-// function like() {
-//     let like = document.getElementById('like');
-//     let likeImg = './img/like.png';
-//     let likeFullImg = './img/like_full.png';
-
-//     if (like.getAttribute('src') === likeImg) {
-//         like.setAttribute('src', likeFullImg);
-//         localStorage.setItem('likeStatus', 'liked');
-//     } else {
-//         like.src = likeImg;
-//         localStorage.removeItem('likeStatus');
-//     }
-// }
-// document.addEventListener('DOMContentLoaded', () => {
-//     let like = document.getElementById('like');
-//     let likeStatus = localStorage.getItem('likeStatus');
-
-//     if (likeStatus === 'liked') {
-//         like.setAttribute('src', './img/like_full.png');
-//     }
-// });
+function like() {
+    let like = document.getElementById('like');
+    let likeImg = './img/like.png';
+    let likeFullImg = './img/like_full.png';
+    if (like.getAttribute('src') === likeImg) {
+        like.setAttribute('src', likeFullImg);
+        localStorage.setItem('likeStatus', 'liked');
+    } else {
+        like.src = likeImg;
+        localStorage.removeItem('likeStatus');
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    let like = document.getElementById('like');
+    let likeStatus = localStorage.getItem('likeStatus');
+    if (likeStatus === 'liked') {
+        like.setAttribute('src', './img/like_full.png');
+    }
+});
 
 

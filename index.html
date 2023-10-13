@@ -38,11 +38,11 @@
     <div class="content" id="content">
         <div class="pokedex-home container text-center" id="card-content"></div>
 
-        <div class="pokedex-entry">
+        <div class="pokedex-entry" id="card-overlay">
             <div id="pokedex">
                 <div class="navigation">
-                    <img src="./img/arrow-left-white.png">
-                    <img src="./img/like.png" id="like">
+                    <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
+                    <img src="./img/like.png" id="like" onclick="like()">
                 </div>
                 <div class="pokemonNameContainer">
                     <h1 id="pokemonName">Name</h1>
