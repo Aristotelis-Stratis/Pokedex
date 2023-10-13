@@ -1,7 +1,7 @@
 let currentPokemon;
 let offset = 0;
 let firstPokemon = 0;
-let allPokemon = 20;
+let allPokemon = 120;
 
 const typeColors = {
     "normal": "rgba(168, 167, 122, 1)",
@@ -23,20 +23,17 @@ const typeColors = {
     "dark": "rgba(112, 87, 70, 1)",
     "fairy": "rgba(214, 133, 173, 1)"
 };
-document.addEventListener('DOMContentLoaded', function() {
-    // Hier wird Ihre Initialisierungslogik aufgerufen, z.B., loadPokemon()
-    loadPokemon();
-  });
 
 async function loadPokemon() {
-    for (let i = firstPokemon +1; i <= allPokemon; i++) {
-      let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-      let response = await fetch(url);
-      currentPokemon = await response.json();
+    for (let i = firstPokemon + 1; i <= allPokemon; i++) {
+        let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+        let response = await fetch(url);
+        currentPokemon = await response.json();
 
-    console.log('Loaded Pokemon', currentPokemon);
-    renderPokemon(i);
-}}
+        console.log('Loaded Pokemon', currentPokemon);
+        renderPokemon(i);
+    }
+}
 
 // =========================== RENDER ===========================
 function renderPokemonInfo() {
@@ -47,14 +44,17 @@ function renderPokemonInfo() {
     document.getElementById('pokemonSprite').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 }
 
-function renderPokemon(i){
+function renderPokemon(i) {
     let pokemonCard = document.getElementById('card-content');
     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
     let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
-    pokemonCard.innerHTML += 
-    `
+    let typeOneButton = document.getElementById('typeOne');
+    let typeTwoButton = document.getElementById('typeTwo');
+    let backgroundColor = typeColors[pokemonType_1] || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
+    pokemonCard.innerHTML +=
+        `
     <div class="row row-cols-4" id="${currentPokemon['name']}">
-                <div class="col" id="entry${i}" onclick="openCard(${i})">
+                <div class="col" id="entry${i}" onclick="openCard(${i})" style="background-color: ${backgroundColor};">
                     <div class="colNameContainer">
                         <h2 id="pokemonName">${currentPokemon['name']}</h2>
                         <div class="colNumberContainer">
@@ -62,8 +62,8 @@ function renderPokemon(i){
                         </div>
                     </div>
                     <div class="colTypeContainer">
-                        <button class="typeButton" id="typeOne${i}">${pokemonType_1}</button>
-                        <button class="typeButton" id="typeTwo${i}">${pokemonType_2}</button>
+                        <button class="typeButton" id="typeOne">${pokemonType_1}</button>
+                        <button class="typeButton" id="typeTwo">${pokemonType_2}</button>
                     </div>
                     <div class="colSpriteContainer">
                         <img id="pokemonSprite" src="${currentPokemon['sprites']['other']['official-artwork']['front_default']}">
@@ -82,51 +82,30 @@ function renderPokemon(i){
                 </div>
             </div>
     `;
-    const darkerBackgroundColor = typeColors[pokemonType_1].replace("1)", "0.7");
-
-    // Die Elemente typeOne und typeTwo auswählen
-    let typeOneButton = document.getElementById('typeOne');
-    let typeTwoButton = document.getElementById('typeTwo');
-  
-    // Überprüfen, ob die Elemente gefunden wurden
-    if (typeOneButton && typeTwoButton) {
-      typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
-      typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
-  
-      if (pokemonType_1) {
-        typeOneButton.style.backgroundColor = typeColors[pokemonType_1].replace("1)", "0.8)");
-      }
-  
-      if (pokemonType_2) {
-        typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
-      } else {
-        typeTwoButton.style.display = 'none';
-      }
-    }
-  }
+}
 
 
 // =========================== RENDER TYPE ===========================
-// function renderPokemonType() {
-//     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
-//     let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
-//     let typeOneButton = document.getElementById('typeOne');
-//     let typeTwoButton = document.getElementById('typeTwo');
-//     let backgroundColor = document.getElementById('pokedex');
-//     const darkerBackgroundColor = typeColors[pokemonType_1].replace("1)", "0.7");
-//     typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
-//     typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
-//     // backgroundColor.style.backgroundColor = darkerBackgroundColor;
-//     if (pokemonType_1) {
-//         typeOneButton.style.backgroundColor = typeColors[pokemonType_1].replace("1)", "0.8)");
-//     }
-//     if (pokemonType_2) {
-//         typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
-//     } else {
-//         typeTwoButton.style.display = 'none';
-//     }
-    
-// }
+// // function renderPokemonType() {
+// //     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
+// //     let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
+// //     let typeOneButton = document.getElementById('typeOne');
+// //     let typeTwoButton = document.getElementById('typeTwo');
+// //     let backgroundColor = document.getElementById('pokedex');
+// //     const darkerBackgroundColor = typeColors[pokemonType_1].replace("1)", "0.7");
+// //     typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
+// //     typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
+// //     // backgroundColor.style.backgroundColor = darkerBackgroundColor;
+// //     if (pokemonType_1) {
+// //         typeOneButton.style.backgroundColor = typeColors[pokemonType_1].replace("1)", "0.8)");
+// //     }
+// //     if (pokemonType_2) {
+// //         typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
+// //     } else {
+// //         typeTwoButton.style.display = 'none';
+// //     }
+
+// // }
 
 
 // =========================== RENDER NAME ===========================

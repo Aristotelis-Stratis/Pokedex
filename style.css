@@ -354,6 +354,7 @@ body {
     width: 225px !important;
     height: 350px !important;
     z-index: 1000;
+    background-color: grey;
 }
 
 .col:hover {
