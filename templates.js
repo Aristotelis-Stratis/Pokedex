@@ -98,63 +98,10 @@ function templateMoves() {
     </div>`;
 }
 
-// function templateTitleCard() {
-//     return `
-//     <div class="pokedex-entry">
-//             <div id="pokedex">
-//                 <div class="navigation">
-//                     <img src="./img/arrow-left-white.png">
-//                     <img src="./img/like.png" id="like">
-//                 </div>
-//                 <div class="pokemonNameContainer">
-//                     <h1 id="pokemonName">Name</h1>
-//                     <div class="pokemonNumberContainer">
-//                         <p class="pokemonNumber" id="pokemonNumber">#123</p>
-//                     </div>
-//                 </div>
-//                 <div class="typeContainer">
-//                     <button class="typeButton" id="typeOne">Fire</button> <button class="typeButton"
-//                         id="typeTwo">Test</button>
-//                 </div>
-//                 <div class="pokemonSpriteContainer">
-//                     <img id="pokemonSprite" src="" alt="Charmander">
-//                 </div>
-//             </div>
-//             <div class="info-container">
-//                 <div class="card text-center no-border c-black w-100">
-//                     <div class="card-header no-border bg-white">
-//                         <ul class="nav nav-pills card-header-pills space-between bg-white">
-//                             <li class="nav-item">
-//                                 <a class="nav-link" href="#" onclick="loadAbout()">About</a>
-//                             </li>
-//                             <li class="nav-item">
-//                                 <a class="nav-link" href="#" onclick="loadStats()">Base Stats</a>
-//                             </li>
-//                             <li class="nav-item">
-//                                 <a class="nav-link" href="#">Evolutions</a>
-//                             </li>
-//                             <li class="nav-item">
-//                                 <a class="nav-link" href="#" onclick="loadMoves()">Moves</a>
-//                             </li>
-//                         </ul>
-//                     </div>
-//                     <div class="card-container" id="card-container">
-//                         <div class="evolution-container">
-//                         <div class="evolution"></div>
-//                         <div class="evolution"></div>
-//                         <div class="evolution"></div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>`;
-// }
-
-
 function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL) {
     return `
         <div class="row row-cols-4" id="${pokemonNumber} ${currentPokemon['name']}">
-            <div class="col" id="entry${i}" onclick="openCard(${i})" style="background-color: ${backgroundColor};">
+            <div class="col" id="entry${i}" style="background-color: ${backgroundColor};">
                 <div class="colNameContainer">
                     <h2 id="pokemonName">${capitalizedPokemonName}</h2>
                     <div class="colNumberContainer">
@@ -182,4 +129,56 @@ function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgro
             </div>
         </div>
     `;
+}
+
+function createOverlayCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL) {
+    return `
+    <div class="pokedex-entry" id="card-overlay">
+    <div id="pokedex ${i}">
+        <div class="navigation">
+            <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
+            <img src="./img/like.png" id="like" onclick="like()">
+        </div>
+        <div class="pokemonNameContainer">
+            <h1 id="pokemonName">${capitalizedPokemonName}</h1>
+            <div class="pokemonNumberContainer">
+                <p class="pokemonNumber" id="pokemonNumber">${pokemonNumber}</p>
+            </div>
+        </div>
+        <div class="typeContainer">
+        <button class="typeButton" id="typeOne_${i}">${pokemonType_1}</button>
+        <button class="typeButton" id="typeTwo_${i}">${pokemonType_2}</button>
+        </div>
+        <div class="pokemonSpriteContainer">
+            <img id="pokemonSprite" src="${spriteURL}">
+        </div>
+    </div>
+    <div class="info-container">
+        <div class="card text-center no-border c-black w-100">
+            <div class="card-header no-border bg-white">
+                <ul class="nav nav-pills card-header-pills space-between bg-white">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadAbout(${i})">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadStats(${i})">Base Stats</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Evolutions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadMoves(${i})">Moves</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-container" id="card-container">
+                <div class="evolution-container">
+                    <div class="evolution"></div>
+                    <div class="evolution"></div>
+                    <div class="evolution"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>`;
 }

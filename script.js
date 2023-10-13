@@ -1,7 +1,7 @@
 let currentPokemon;
 let offset = 0;
 let firstPokemon = 0;
-let allPokemon = 20;
+let allPokemon = 10;
 
 const typeColors = {
     "normal": "rgba(168, 167, 122, 1)",
@@ -72,6 +72,12 @@ function renderPokemon(i) {
 //     renderPokemonStats();
 //     renderAbout();
 // }
+
+// =========================== OVERLAY ===========================
+
+
+
+
 
 // =========================== RENDER TYPE ===========================
 function setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemonType_2) {
