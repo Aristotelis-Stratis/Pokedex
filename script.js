@@ -91,7 +91,7 @@ function setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemo
 
 
 // =========================== RENDER ABOUT ===========================
-function renderAbout() {
+function loadAbout() {
     let about = document.getElementById('card-container');
     let height = currentPokemon['height'];
     let weight = currentPokemon['weight'];
@@ -145,15 +145,15 @@ function loadMoves() {
 }
 
 // =========================== OPEN CARD ===========================
-function openCard() {
-    let entry = document.getElementById('entry');
-    entry.style.display = "flex";
+function openOverlay() {
+    let overlay = document.getElementById('overlay');
+    overlay.style.display = 'block';
 }
 
 // =========================== CLOSE CARD ===========================
-function closeCard() {
-    let entry = document.getElementById('entry');
-    entry.style.display = "none";
+function closeOverlay() {
+    let overlay = document.getElementById('overlay');
+    overlay.style.display = 'none';
 }
 
 

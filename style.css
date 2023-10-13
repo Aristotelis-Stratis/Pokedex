@@ -297,15 +297,17 @@ body {
     scale: 70%;
     display: flex;
     flex-direction: column;
+    border: 2px solid white;
+    border-radius: 20px;
+    z-index: 1001;
+    max-width: 525px;
     position: absolute;
+    margin-left: auto;
+    margin-right: auto;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    border: 2px solid green;
-    border-radius: 20px;
-    z-index: 1001;
-    max-width: 525px;
 }
 
 /*MAIN PAGE*/
@@ -324,8 +326,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    top: 30px;
     max-width: 100% !important;
     padding-left: 125px !important;
     padding-right: 125px !important;
@@ -338,7 +338,7 @@ body {
     align-items: center !important;
     justify-content: center !important;
     position: relative;
-    top: 60px;
+    padding-top:60px;
     background-color: rgb(10, 20, 30,20%);
     max-width: 100% !important;
     padding-left: 125px !important;
