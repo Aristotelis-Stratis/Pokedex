@@ -149,3 +149,37 @@ function templateMoves() {
 //             </div>
 //         </div>`;
 // }
+
+
+function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL) {
+    return `
+        <div class="row row-cols-4" id="${pokemonNumber} ${currentPokemon['name']}">
+            <div class="col" id="entry${i}" onclick="openCard(${i})" style="background-color: ${backgroundColor};">
+                <div class="colNameContainer">
+                    <h2 id="pokemonName">${capitalizedPokemonName}</h2>
+                    <div class="colNumberContainer">
+                        <p class="colNumber" id="pokemonNumber">${pokemonNumber}</p>
+                    </div>
+                </div>
+                <div class="colTypeContainer">
+                    <button class="typeButton" id="typeOne_${i}">${pokemonType_1}</button>
+                    <button class="typeButton" id="typeTwo_${i}">${pokemonType_2}</button>
+                </div>
+                <div class="colSpriteContainer">
+                    <img id="pokemonSprite" src="${spriteURL}">
+                </div>
+                <div class="pkmnIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"
+                        style="transform: rotate(-15deg);">
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255, 255, 255, 0.6)"
+                            stroke-width="10" />
+                        <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(255, 255, 255, 0.6)"
+                            stroke-width="10" />
+                        <rect x="25" y="90" width="41" height="15" fill="rgba(255, 255, 255, 0.5)" />
+                        <rect x="134" y="90" width="41" height="15" fill="rgba(255, 255, 255, 0.5)" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    `;
+}

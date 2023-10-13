@@ -349,7 +349,7 @@ body {
 
 /*titlecard*/
 .col {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     border-radius: 20px;
     width: 225px !important;
     height: 350px !important;

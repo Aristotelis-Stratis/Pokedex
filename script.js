@@ -38,57 +38,32 @@ async function loadPokemon() {
 // =========================== RENDER ===========================
 
 function renderPokemon(i) {
+    // Fetching elements and data
     let pokemonCard = document.getElementById('card-content');
     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
     let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
-    let backgroundColor = typeColors[pokemonType_1].replace("1)", "0.75)") || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
     let pokemonName = currentPokemon['name'];
     let pokemonNumber = '#' + currentPokemon['id'];
+
+    // Creating the formatted name
     capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
-    pokemonCard.innerHTML +=
-        `
-    <div class="row row-cols-4" id="${pokemonNumber} ${currentPokemon['name']}">
-                <div class="col" id="entry${i}" onclick="openCard(${i})" style="background-color: ${backgroundColor};">
-                    <div class="colNameContainer">
-                        <h2 id="pokemonName">${capitalizedPokemonName}</h2>
-                        <div class="colNumberContainer">
-                            <p class="colNumber" id="pokemonNumber">${pokemonNumber}</p>
-                        </div>
-                    </div>
-                    <div class="colTypeContainer">
-                        <button class="typeButton" id="typeOne_${i}">${pokemonType_1}</button>
-                        <button class="typeButton" id="typeTwo_${i}">${pokemonType_2}</button>
-                    </div>
-                    <div class="colSpriteContainer">
-                        <img id="pokemonSprite" src="${currentPokemon['sprites']['other']['official-artwork']['front_default']}">
-                    </div>
-                    <div class="pkmnIcon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"
-                            style="transform: rotate(-15deg);">
-                            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255, 255, 255, 0.6)"
-                                stroke-width="10" />
-                            <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(255, 255, 255, 0.6)"
-                                stroke-width="10" />
-                            <rect x="25" y="90" width="41" height="15" fill="rgba(255, 255, 255, 0.5)" />
-                            <rect x="134" y="90" width="41" height="15" fill="rgba(255, 255, 255, 0.5)" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    `;
-    // renderPokemonType()
+
+    // Background color and sprite URL
+    let backgroundColor = typeColors[pokemonType_1].replace("1)", "0.75)") || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
+    const spriteURL = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+
+    // Creating the HTML code for the Pokemon card
+    const cardHTML = createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL);
+
+    // Adding the Pokemon card to the document
+    pokemonCard.innerHTML += cardHTML;
+
+    // Fetching the Type-One and Type-Two buttons
     let typeOneButton = document.getElementById(`typeOne_${i}`);
     let typeTwoButton = document.getElementById(`typeTwo_${i}`);
-    typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
-    typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
-    if (pokemonType_1) {
-        typeOneButton.style.backgroundColor = typeColors[pokemonType_1].replace("1)", "1)");
-    }
-    if (pokemonType_2) {
-        typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
-    } else {
-        typeTwoButton.style.display = 'none';
-    }
+
+    // Adjusting button properties
+    setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemonType_2);
 }
 
 // function renderPokemonInfo() {
@@ -99,30 +74,21 @@ function renderPokemon(i) {
 // }
 
 // =========================== RENDER TYPE ===========================
-//  function renderPokemonType() {
-//      let typeOneButton = document.getElementById(`typeOne_${i}`);
-//     let typeTwoButton = document.getElementById(`typeTwo_${i}`);
-//     typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
-//     typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
-//     if (pokemonType_1) {
-//         typeOneButton.style.backgroundColor = typeColors[pokemonType_1].replace("1)", "1)");
-//     }
-//     if (pokemonType_2) {
-//         typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
-//     } else {
-//         typeTwoButton.style.display = 'none';
-//     }
-//  }
+function setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemonType_2) {
+    typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
+    
+    if (pokemonType_1) {
+        typeOneButton.style.backgroundColor = typeColors[pokemonType_1].replace("1)", "0.8)");
+    }
+    
+    if (pokemonType_2) {
+        typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
+        typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
+    } else {
+        typeTwoButton.style.display = 'none';
+    }
+}
 
-
-// =========================== RENDER NAME ===========================
-// function renderPokemonName() {
-//     let pokemonName = currentPokemon['name'];
-//     let pokemonNumber = currentPokemon['order'];
-//     capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
-//     document.getElementById('pokemonName').innerHTML = capitalizedPokemonName;
-//     document.getElementById('pokemonNumber').innerHTML = '#' + pokemonNumber;
-// }
 
 // =========================== RENDER ABOUT ===========================
 function renderAbout() {
