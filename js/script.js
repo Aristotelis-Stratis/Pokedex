@@ -1,7 +1,7 @@
 let currentPokemon;
 let offset = 0;
 let firstPokemon = 0;
-let allPokemon = 20;
+let allPokemon = 10;
 
 const typeColors = {
     "normal": "rgba(168, 167, 122, 1)",
@@ -68,39 +68,10 @@ function renderPokemon(i) {
 
  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function renderOverlayPokemon(){
+    let overlayCard = document.getElementById('card-overlay');
+    overlayCard.innerHTML = createOverlayCardHTML();
+}
 
 
 
@@ -159,13 +130,7 @@ function renderPokemonStats() {
 }
 
 // =========================== RENDER MOVES ===========================
-// function renderMoves() {
-//     let movesContainer = document.getElementById('moves-container');
-//     for (let i = 0; i < currentPokemon['moves']['length']; i++) {
-//         movesContainer.innerHTML += ``;
 
-//     }
-// }
 
 
 // =========================== LOAD CARD LINKS ===========================
@@ -195,10 +160,10 @@ function loadMoves() {
 // }
 
 // =========================== CLOSE CARD ===========================
-// function closeOverlay() {
-//     let overlay = document.getElementById('card-overlay');
-//     overlay.style.display = 'none';
-// }
+function closeOverlay() {
+    let overlay = document.getElementById('overlay');
+    overlay.style.display = 'none';
+}
 
 
 // =========================== LOAD MORE WITH SCROLL ===========================

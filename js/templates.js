@@ -86,7 +86,7 @@ function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL)
     </div>`;
 }
 
-function templateEvolutions() {}
+function templateEvolutions() { }
 function templateMoves() {
     return `
     <div class="card-body">
@@ -99,7 +99,7 @@ function templateMoves() {
 function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL) {
     return `
         <div class="row row-cols-4" id="${pokemonNumber} ${currentPokemon['name']}">
-            <div class="col" id="entry${i}" style="background-color: ${backgroundColor};" onclick="createOverlayCardHTML(${i-1})">
+            <div class="col" id="entry${i}" style="background-color: ${backgroundColor};" onclick="createOverlayCardHTML(${i})">
                 <div class="colNameContainer">
                     <h2 id="pokemonName">${capitalizedPokemonName}</h2>
                     <div class="colNumberContainer">
@@ -129,62 +129,135 @@ function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgro
     `;
 }
 
-// function createOverlayCardHTML(i) {
-//     document.getElementById('overlay').classList.remove('d-none');
-//     let selectedPokemonName = allPokemon[`${i}`]['name'];
-//     let selectedPokemonNumber = allPokemon[`${i}`]['id'];
-//     let selectedPokemonSprite = allPokemon[`${i}`][`${spriteURL}`];
 
-//     let cardOverlay = document.getElementById('card-overlay');
 
-//     cardOverlay.innerHTML = `
-//     <div class="pokedex-entry" id="card-overlay">
-//         <div id="pokedex">
-//             <div class="navigation">
-//                 <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
-//                     <img src="./img/like.png" id="like" onclick="like()">
-//                     </div>
-//                     <div class="pokemonNameContainer">
-//                         <h1 id="pokemonName">Test 123</h1>
-//                         <div class="pokemonNumberContainer">
-//                             <p class="pokemonNumber" id="pokemonNumber">0123</p>
-//                         </div>
-//                     </div>
-//                     <div class="typeContainer">
-//                         <button class="typeButton" id="typeOne"></button>
-//                         <button class="typeButton" id="typeTwo"></button>
-//                     </div>
-//                     <div class="pokemonSpriteContainer">
-//                         <img id="pokemonSprite" src="./img/charmander.png">
-//                     </div>
-//             </div>
-//             <div class="info-container">
-//                 <div class="card text-center no-border c-black w-100">
-//                     <div class="card-header no-border bg-white">
-//                         <ul class="nav nav-pills card-header-pills space-between bg-white">
-//                             <li class="nav-item">
-//                                 <a class="nav-link" href="#" onclick="loadAbout()">About</a>
-//                             </li>
-//                             <li class="nav-item">
-//                                 <a class="nav-link" href="#" onclick="loadStats()">Base Stats</a>
-//                             </li>
-//                             <li class="nav-item">
-//                                 <a class="nav-link" href="#">Evolutions</a>
-//                             </li>
-//                             <li class="nav-item">
-//                                 <a class="nav-link" href="#" onclick="loadMoves()">Moves</a>
-//                             </li>
-//                         </ul>
-//                     </div>
-//                     <div class="card-container" id="card-container">
-//                         <div class="evolution-container">
-//                             <div class="evolution"></div>
-//                             <div class="evolution"></div>
-//                             <div class="evolution"></div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>`;
-// }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function createOverlayCardHTML(i) {
+    await renderPokemon(i);
+    let overlay = document.getElementById('overlay');
+    let cardOverlay = document.getElementById('card-overlay');
+
+    letOverlayType_1 = currentPokemon['types'][0]['type']['name'];
+    letOverlayType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
+    overlayName = currentPokemon['name'];
+    overlayNumber = '#' + currentPokemon['id'];
+
+
+    // Füllen Sie das Overlay mit den Informationen für das ausgewählte Pokémon
+    cardOverlay.innerHTML = `
+    <div id="pokedex">
+        <div class="navigation">
+            <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
+                <img src="./img/like.png" id="like" onclick="like()">
+                </div>
+                <div class="pokemonNameContainer">
+                    <h1 id="pokemonName">${overlayName}</h1>
+                    <div class="pokemonNumberContainer">
+                        <p class="pokemonNumber" id="pokemonNumber">${overlayNumber}</p>
+                    </div>
+                </div>
+                <div class="typeContainer">
+                    <button class="typeButton" id="typeOne">${letOverlayType_1}</button>
+                    <button class="typeButton" id="typeTwo">${letOverlayType_2}</button>
+                </div>
+                <div class="pokemonSpriteContainer">
+                    <img id="pokemonSprite" src="">
+                </div>
+        </div>
+        <div class="info-container">
+            <div class="card text-center no-border c-black w-100">
+                <div class="card-header no-border bg-white">
+                    <ul class="nav nav-pills card-header-pills space-between bg-white">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="loadAbout()">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="loadStats()">Base Stats</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Evolutions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="loadMoves()">Moves</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-container" id="card-container">
+                    <div class="evolution-container">
+                        <div class="evolution"></div>
+                        <div class="evolution"></div>
+                        <div class="evolution"></div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+    // Zeigen Sie das Overlay an
+    overlay.style.display = 'flex';
+}
+
+function templateOverlay() {
+    return `
+    <div class="pokedex-entry" id="card-overlay">
+        <div id="pokedex">
+            <div class="navigation">
+                <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
+                    <img src="./img/like.png" id="like" onclick="like()">
+                    </div>
+                    <div class="pokemonNameContainer">
+                        <h1 id="pokemonName">Test 123</h1>
+                        <div class="pokemonNumberContainer">
+                            <p class="pokemonNumber" id="pokemonNumber">${pokemonNumber}</p>
+                        </div>
+                    </div>
+                    <div class="typeContainer">
+                        <button class="typeButton" id="typeOne"></button>
+                        <button class="typeButton" id="typeTwo"></button>
+                    </div>
+                    <div class="pokemonSpriteContainer">
+                        <img id="pokemonSprite" src="${spriteURL}">
+                    </div>
+            </div>
+            <div class="info-container">
+                <div class="card text-center no-border c-black w-100">
+                    <div class="card-header no-border bg-white">
+                        <ul class="nav nav-pills card-header-pills space-between bg-white">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="loadAbout()">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="loadStats()">Base Stats</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Evolutions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="loadMoves()">Moves</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-container" id="card-container">
+                        <div class="evolution-container">
+                            <div class="evolution"></div>
+                            <div class="evolution"></div>
+                            <div class="evolution"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+}
