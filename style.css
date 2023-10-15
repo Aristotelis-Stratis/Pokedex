@@ -420,3 +420,13 @@ body {
 .row {
     gap: 10px;
 }
+
+
+.overlay {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 2000;
+    background-color: rgb(255 255 255 / 40%);
+}

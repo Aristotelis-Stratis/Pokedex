@@ -86,9 +86,7 @@ function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL)
     </div>`;
 }
 
-function templateEvolutions() {
-
-}
+function templateEvolutions() {}
 function templateMoves() {
     return `
     <div class="card-body">
@@ -101,7 +99,7 @@ function templateMoves() {
 function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL) {
     return `
         <div class="row row-cols-4" id="${pokemonNumber} ${currentPokemon['name']}">
-            <div class="col" id="entry${i}" style="background-color: ${backgroundColor};">
+            <div class="col" id="entry${i}" style="background-color: ${backgroundColor};" onclick="createOverlayCardHTML(${i-1})">
                 <div class="colNameContainer">
                     <h2 id="pokemonName">${capitalizedPokemonName}</h2>
                     <div class="colNumberContainer">
@@ -131,54 +129,62 @@ function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgro
     `;
 }
 
-function createOverlayCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL) {
-    return `
-    <div class="pokedex-entry" id="card-overlay">
-    <div id="pokedex ${i}">
-        <div class="navigation">
-            <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
-            <img src="./img/like.png" id="like" onclick="like()">
-        </div>
-        <div class="pokemonNameContainer">
-            <h1 id="pokemonName">${capitalizedPokemonName}</h1>
-            <div class="pokemonNumberContainer">
-                <p class="pokemonNumber" id="pokemonNumber">${pokemonNumber}</p>
-            </div>
-        </div>
-        <div class="typeContainer">
-        <button class="typeButton" id="typeOne_${i}">${pokemonType_1}</button>
-        <button class="typeButton" id="typeTwo_${i}">${pokemonType_2}</button>
-        </div>
-        <div class="pokemonSpriteContainer">
-            <img id="pokemonSprite" src="${spriteURL}">
-        </div>
-    </div>
-    <div class="info-container">
-        <div class="card text-center no-border c-black w-100">
-            <div class="card-header no-border bg-white">
-                <ul class="nav nav-pills card-header-pills space-between bg-white">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="loadAbout(${i})">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="loadStats(${i})">Base Stats</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Evolutions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="loadMoves(${i})">Moves</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="card-container" id="card-container">
-                <div class="evolution-container">
-                    <div class="evolution"></div>
-                    <div class="evolution"></div>
-                    <div class="evolution"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>`;
-}
+// function createOverlayCardHTML(i) {
+//     document.getElementById('overlay').classList.remove('d-none');
+//     let selectedPokemonName = allPokemon[`${i}`]['name'];
+//     let selectedPokemonNumber = allPokemon[`${i}`]['id'];
+//     let selectedPokemonSprite = allPokemon[`${i}`][`${spriteURL}`];
+
+//     let cardOverlay = document.getElementById('card-overlay');
+
+//     cardOverlay.innerHTML = `
+//     <div class="pokedex-entry" id="card-overlay">
+//         <div id="pokedex">
+//             <div class="navigation">
+//                 <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
+//                     <img src="./img/like.png" id="like" onclick="like()">
+//                     </div>
+//                     <div class="pokemonNameContainer">
+//                         <h1 id="pokemonName">Test 123</h1>
+//                         <div class="pokemonNumberContainer">
+//                             <p class="pokemonNumber" id="pokemonNumber">0123</p>
+//                         </div>
+//                     </div>
+//                     <div class="typeContainer">
+//                         <button class="typeButton" id="typeOne"></button>
+//                         <button class="typeButton" id="typeTwo"></button>
+//                     </div>
+//                     <div class="pokemonSpriteContainer">
+//                         <img id="pokemonSprite" src="./img/charmander.png">
+//                     </div>
+//             </div>
+//             <div class="info-container">
+//                 <div class="card text-center no-border c-black w-100">
+//                     <div class="card-header no-border bg-white">
+//                         <ul class="nav nav-pills card-header-pills space-between bg-white">
+//                             <li class="nav-item">
+//                                 <a class="nav-link" href="#" onclick="loadAbout()">About</a>
+//                             </li>
+//                             <li class="nav-item">
+//                                 <a class="nav-link" href="#" onclick="loadStats()">Base Stats</a>
+//                             </li>
+//                             <li class="nav-item">
+//                                 <a class="nav-link" href="#">Evolutions</a>
+//                             </li>
+//                             <li class="nav-item">
+//                                 <a class="nav-link" href="#" onclick="loadMoves()">Moves</a>
+//                             </li>
+//                         </ul>
+//                     </div>
+//                     <div class="card-container" id="card-container">
+//                         <div class="evolution-container">
+//                             <div class="evolution"></div>
+//                             <div class="evolution"></div>
+//                             <div class="evolution"></div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>`;
+// }
+
