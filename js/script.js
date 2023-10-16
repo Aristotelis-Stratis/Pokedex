@@ -53,11 +53,11 @@ function renderPokemon(i) {
     const spriteURL = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 
     // Creating the HTML code for the Pokemon card
-    const cardHTML = createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL);
+    const cardHTML = createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL, currentPokemon);
 
     // Adding the Pokemon card to the document
     pokemonCard.innerHTML += cardHTML;
-
+    
     // Fetching the Type-One and Type-Two buttons
     let typeOneButton = document.getElementById(`typeOne_${i}`);
     let typeTwoButton = document.getElementById(`typeTwo_${i}`);
@@ -66,27 +66,12 @@ function renderPokemon(i) {
     setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemonType_2);
 }
 
- 
+// =========================== OVERLAY ===========================
 
 function renderOverlayPokemon(){
     let overlayCard = document.getElementById('card-overlay');
     overlayCard.innerHTML = createOverlayCardHTML();
 }
-
-
-
-// function renderPokemonInfo() {
-//     renderPokemonName();
-//     renderPokemonType();
-//     renderPokemonStats();
-//     renderAbout();
-// }
-
-// =========================== OVERLAY ===========================
-
-
-
-
 
 // =========================== RENDER TYPE ===========================
 function setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemonType_2) {
@@ -143,21 +128,13 @@ function loadStats() {
     stats.innerHTML = templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL);
 }
 
-function loadEvolutions() {
-
-}
+// function loadEvolutions() {}
 
 function loadMoves() {
     let moves = document.getElementById('card-container');
     moves.innerHTML = '';
     moves.innerHTML = templateMoves();
 }
-
-// =========================== OPEN CARD ===========================
-// function openOverlay() {
-//     let overlay = document.getElementById('card-overlay');
-//     overlay.style.display = 'flex';
-// }
 
 // =========================== CLOSE CARD ===========================
 function closeOverlay() {
@@ -175,24 +152,24 @@ function closeOverlay() {
 
 
 // =========================== LIKE ===========================
-function like() {
-    let like = document.getElementById('like');
-    let likeImg = './img/like.png';
-    let likeFullImg = './img/like_full.png';
-    if (like.getAttribute('src') === likeImg) {
-        like.setAttribute('src', likeFullImg);
-        localStorage.setItem('likeStatus', 'liked');
-    } else {
-        like.src = likeImg;
-        localStorage.removeItem('likeStatus');
-    }
-}
-document.addEventListener('DOMContentLoaded', () => {
-    let like = document.getElementById('like');
-    let likeStatus = localStorage.getItem('likeStatus');
-    if (likeStatus === 'liked') {
-        like.setAttribute('src', './img/like_full.png');
-    }
-});
+// function like() {
+//     let like = document.getElementById('like');
+//     let likeImg = './img/like.png';
+//     let likeFullImg = './img/like_full.png';
+//     if (like.getAttribute('src') === likeImg) {
+//         like.setAttribute('src', likeFullImg);
+//         localStorage.setItem('likeStatus', 'liked');
+//     } else {
+//         like.src = likeImg;
+//         localStorage.removeItem('likeStatus');
+//     }
+// }
+// document.addEventListener('DOMContentLoaded', () => {
+//     let like = document.getElementById('like');
+//     let likeStatus = localStorage.getItem('likeStatus');
+//     if (likeStatus === 'liked') {
+//         like.setAttribute('src', './img/like_full.png');
+//     }
+// });
 
 

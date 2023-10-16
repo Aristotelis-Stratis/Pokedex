@@ -86,15 +86,16 @@ function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL)
     </div>`;
 }
 
-function templateEvolutions() { }
-function templateMoves() {
-    return `
-    <div class="card-body">
-        <div class="attack-container" id="moves-container">
-            <button>${currentPokemon['name']}</button>
-       </div>
-    </div>`;
-}
+// function templateEvolutions() { }
+
+// function templateMoves() {
+//     return `
+//     <div class="card-body">
+//         <div class="attack-container" id="moves-container">
+//             <button>${currentPokemon['name']}</button>
+//        </div>
+//     </div>`;
+// }
 
 function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL) {
     return `
@@ -129,25 +130,7 @@ function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgro
     `;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-async function createOverlayCardHTML(i) {
-    await renderPokemon(i);
+function createOverlayCardHTML() {
     let overlay = document.getElementById('overlay');
     let cardOverlay = document.getElementById('card-overlay');
 
@@ -208,56 +191,4 @@ async function createOverlayCardHTML(i) {
 
     // Zeigen Sie das Overlay an
     overlay.style.display = 'flex';
-}
-
-function templateOverlay() {
-    return `
-    <div class="pokedex-entry" id="card-overlay">
-        <div id="pokedex">
-            <div class="navigation">
-                <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
-                    <img src="./img/like.png" id="like" onclick="like()">
-                    </div>
-                    <div class="pokemonNameContainer">
-                        <h1 id="pokemonName">Test 123</h1>
-                        <div class="pokemonNumberContainer">
-                            <p class="pokemonNumber" id="pokemonNumber">${pokemonNumber}</p>
-                        </div>
-                    </div>
-                    <div class="typeContainer">
-                        <button class="typeButton" id="typeOne"></button>
-                        <button class="typeButton" id="typeTwo"></button>
-                    </div>
-                    <div class="pokemonSpriteContainer">
-                        <img id="pokemonSprite" src="${spriteURL}">
-                    </div>
-            </div>
-            <div class="info-container">
-                <div class="card text-center no-border c-black w-100">
-                    <div class="card-header no-border bg-white">
-                        <ul class="nav nav-pills card-header-pills space-between bg-white">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="loadAbout()">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="loadStats()">Base Stats</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Evolutions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="loadMoves()">Moves</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-container" id="card-container">
-                        <div class="evolution-container">
-                            <div class="evolution"></div>
-                            <div class="evolution"></div>
-                            <div class="evolution"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`;
 }

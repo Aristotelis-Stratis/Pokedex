@@ -357,8 +357,9 @@ body {
     background-color: grey;
 }
 
-.col:hover {
-    scale: 105%;
+.colSpriteContainer:hover {
+    transform: scale(1.2);
+    transition: transform 250ms;
 }
 
 .colNameContainer {
@@ -420,7 +421,6 @@ body {
 .row {
     gap: 10px;
 }
-
 
 .overlay {
     display: flex;
