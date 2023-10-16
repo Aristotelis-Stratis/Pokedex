@@ -133,11 +133,12 @@ function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgro
 function createOverlayCardHTML() {
     let overlay = document.getElementById('overlay');
     let cardOverlay = document.getElementById('card-overlay');
-
-    letOverlayType_1 = currentPokemon['types'][0]['type']['name'];
-    letOverlayType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
-    overlayName = currentPokemon['name'];
-    overlayNumber = '#' + currentPokemon['id'];
+    let overlayType_1 = currentPokemon['types'][0]['type']['name'];
+    let overlayType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
+    let overlayNumber = '#' + currentPokemon['id'];
+    let overlayName = currentPokemon['name'];
+    capitalizedOverlayName = overlayName.charAt(0).toUpperCase() + overlayName.slice(1);
+    const spriteURL = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 
 
     // Füllen Sie das Overlay mit den Informationen für das ausgewählte Pokémon
@@ -148,17 +149,17 @@ function createOverlayCardHTML() {
                 <img src="./img/like.png" id="like" onclick="like()">
                 </div>
                 <div class="pokemonNameContainer">
-                    <h1 id="pokemonName">${overlayName}</h1>
+                    <h1 id="pokemonName">${capitalizedOverlayName}</h1>
                     <div class="pokemonNumberContainer">
                         <p class="pokemonNumber" id="pokemonNumber">${overlayNumber}</p>
                     </div>
                 </div>
                 <div class="typeContainer">
-                    <button class="typeButton" id="typeOne">${letOverlayType_1}</button>
-                    <button class="typeButton" id="typeTwo">${letOverlayType_2}</button>
+                    <button class="typeButton" id="typeOne">${overlayType_1}</button>
+                    <button class="typeButton" id="typeTwo">${overlayType_2}</button>
                 </div>
                 <div class="pokemonSpriteContainer">
-                    <img id="pokemonSprite" src="">
+                    <img id="pokemonSprite" src="${spriteURL}">
                 </div>
         </div>
         <div class="info-container">

@@ -1,7 +1,7 @@
 let currentPokemon;
 let offset = 0;
 let firstPokemon = 0;
-let allPokemon = 10;
+let allPokemon = 9;
 
 const typeColors = {
     "normal": "rgba(168, 167, 122, 1)",
