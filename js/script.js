@@ -1,7 +1,7 @@
 let currentPokemon;
 let offset = 0;
 let firstPokemon = 0;
-let allPokemon = 9;
+let allPokemon = 20;
 
 const typeColors = {
     "normal": "rgba(168, 167, 122, 1)",
@@ -38,27 +38,17 @@ async function loadPokemon() {
 // =========================== RENDER ===========================
 
 function renderPokemon(i) {
-    // Fetching elements and data
     let pokemonCard = document.getElementById('card-content');
     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
     let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
     let pokemonName = currentPokemon['name'];
     let pokemonNumber = '#' + currentPokemon['id'];
-
-    // Creating the formatted name
     capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
-
-    // Background color and sprite URL
     let backgroundColor = typeColors[pokemonType_1].replace("1)", "0.75)") || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
     const spriteURL = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-
-    // Creating the HTML code for the Pokemon card
     const cardHTML = createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL, currentPokemon);
-
-    // Adding the Pokemon card to the document
     pokemonCard.innerHTML += cardHTML;
-    
-    // Fetching the Type-One and Type-Two buttons
+
     let typeOneButton = document.getElementById(`typeOne_${i}`);
     let typeTwoButton = document.getElementById(`typeTwo_${i}`);
 
@@ -66,21 +56,21 @@ function renderPokemon(i) {
     setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemonType_2);
 }
 
-// =========================== OVERLAY ===========================
+// =========================== RENDER OVERLAY ===========================
 
-function renderOverlayPokemon(){
+function renderOverlayPokemon() {
     let overlayCard = document.getElementById('card-overlay');
     overlayCard.innerHTML = createOverlayCardHTML();
 }
 
-// =========================== RENDER TYPE ===========================
+// =========================== RENDER BUTTON TYPE ===========================
 function setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemonType_2) {
     typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
-    
+
     if (pokemonType_1) {
         typeOneButton.style.backgroundColor = typeColors[pokemonType_1].replace("1)", "0.8)");
     }
-    
+
     if (pokemonType_2) {
         typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
         typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
@@ -140,6 +130,7 @@ function loadMoves() {
 function closeOverlay() {
     let overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
+    
 }
 
 

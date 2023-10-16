@@ -130,20 +130,23 @@ function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgro
     `;
 }
 
-function createOverlayCardHTML() {
+function createOverlayCardHTML(i) {
     let overlay = document.getElementById('overlay');
     let cardOverlay = document.getElementById('card-overlay');
-    let overlayType_1 = currentPokemon['types'][0]['type']['name'];
-    let overlayType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
+    let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
+    let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
     let overlayNumber = '#' + currentPokemon['id'];
     let overlayName = currentPokemon['name'];
+    let overlayTypeOneButton = document.getElementById(`typeOne_${i}`);
+    let overlayTypeTwoButton = document.getElementById(`typeTwo_${i}`);
     capitalizedOverlayName = overlayName.charAt(0).toUpperCase() + overlayName.slice(1);
-    const spriteURL = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+    const spriteURL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${i}.png`;
+    let backgroundColor = typeColors[pokemonType_1] || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
 
 
     // Füllen Sie das Overlay mit den Informationen für das ausgewählte Pokémon
     cardOverlay.innerHTML = `
-    <div id="pokedex">
+    <div id="pokedex" style="background-color: ${backgroundColor};">
         <div class="navigation">
             <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
                 <img src="./img/like.png" id="like" onclick="like()">
@@ -155,11 +158,11 @@ function createOverlayCardHTML() {
                     </div>
                 </div>
                 <div class="typeContainer">
-                    <button class="typeButton" id="typeOne">${overlayType_1}</button>
-                    <button class="typeButton" id="typeTwo">${overlayType_2}</button>
+                    <button class="typeButton" id="overlay_typeOne_${i}">${pokemonType_1}</button>
+                    <button class="typeButton" id="overlay_typeTwo_${i}">${pokemonType_2}</button>
                 </div>
                 <div class="pokemonSpriteContainer">
-                    <img id="pokemonSprite" src="${spriteURL}">
+                    <img id="pokemonSprite${i}" src="${spriteURL}">
                 </div>
         </div>
         <div class="info-container">
