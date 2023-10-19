@@ -1,6 +1,8 @@
 let currentPokemon;
 let firstPokemon = 0;
 let allPokemon = 10;
+let allPokemonObjects = [];
+let i;
 
 // =========================== COLORS ===========================
 const typeColors = {
@@ -30,22 +32,27 @@ async function loadPokemon() {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         currentPokemon = await response.json();
+        allPokemonObjects.push(currentPokemon);
         console.log('Loaded Pokemon', currentPokemon);
         renderPokemon(i);
+
+
+        // eine For-Schleife bauen, die alle Elemente jedes Pokemon rendert weil alles über 0 = undefined ist. 
+        // Nach der For-Schleife alle HTML Sachen einzelnt rendern das heißt Typen in typeHTML(),moves() usw
     }
 }
 
 // =========================== RENDER ===========================
 function renderPokemon(i) {
     let pokemonCard = document.getElementById('card-content');
-    let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
-    let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
+    let pokemonType_1 = allPokemonObjects[0]['types'][0]['type']['name'];
+    let pokemonType_2 = allPokemonObjects[0]['types'].length > 1 ? allPokemonObjects[0]['types'][1]['type']['name'] : '';
     let pokemonName = currentPokemon['name'];
     let pokemonNumber = '#' + currentPokemon['id'];
     capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
     let backgroundColor = typeColors[pokemonType_1].replace("1)", "0.75)") || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
     let spriteURL = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-    let cardHTML = createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL, currentPokemon);
+    let cardHTML = createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL);
     pokemonCard.innerHTML += cardHTML;
 
     let typeOneButton = document.getElementById(`typeOne_${i}`);
@@ -56,9 +63,9 @@ function renderPokemon(i) {
 }
 
 // =========================== RENDER OVERLAY ===========================
-function renderOverlayPokemon() {
+function renderOverlayPokemon(i) {
     let overlayCard = document.getElementById('card-overlay');
-    overlayCard.innerHTML = createOverlayCardHTML();
+    overlayCard.innerHTML = createOverlayCardHTML(i);
 }
 
 // =========================== RENDER BUTTON TYPE ===========================

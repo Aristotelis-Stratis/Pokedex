@@ -123,63 +123,62 @@ function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgro
     `;
 }
 // =========================== CREATE OVERLAY ===========================
-function createOverlayCardHTML(i) {
-    let overlay = document.getElementById('overlay');
-    let cardOverlay = document.getElementById('card-overlay');
-    let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
-    let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
-    let overlayNumber = '#' + i;
-    let overlayName = [currentPokemon['name']];
-    const spriteURL = [currentPokemon['sprites']['other']['official-artwork']['front_default']];
-    let backgroundColor = typeColors[pokemonType_1] || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
-    overlay.style.display = 'flex';
+// function createOverlayCardHTML(i) {
+//     let overlay = document.getElementById('overlay');
+//     let cardOverlay = document.getElementById('card-overlay');
+//     let pokemonType_1 = allPokemonObjects[i]['types'][0]['type']['name'];
+//     let pokemonType_2 = allPokemonObjects[i]['types'].length > 1 ? allPokemonObjects[i]['types'][1]['type']['name'] : '';
+//     let overlayNumber = '#' + i;
+//     let overlayName = allPokemonObjects[i]['name'];
+//     const spriteURL = allPokemonObjects[i]['sprites']['other']['official-artwork']['front_default'];
+//     let backgroundColor = typeColors[pokemonType_1] || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
+//     overlay.style.display = 'flex';
 
-    cardOverlay.innerHTML = `
-    <div id="pokedex" style="background-color: ${backgroundColor};">
-        <div class="navigation">
-            <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
-                <img src="./img/like.png" id="like">
-                </div>
-                <div class="pokemonNameContainer">
-                    <h1 id="pokemonName">${overlayName}</h1>
-                    <div class="pokemonNumberContainer">
-                        <p class="pokemonNumber" id="pokemonNumber${i}">${overlayNumber}</p>
-                    </div>
-                </div>
-                <div class="typeContainer">
-                    <button class="typeButton" id="overlay_typeOne_${i}">${pokemonType_1}</button>
-                    <button class="typeButton" id="overlay_typeTwo_${i}">${pokemonType_2}</button>
-                </div>
-                <div class="pokemonSpriteContainer">
-                    <img id="pokemonSprite${i}" src="${spriteURL}">
-                </div>
-        </div>
-        <div class="info-container">
-            <div class="card text-center no-border c-black w-100">
-                <div class="card-header no-border bg-white">
-                    <ul class="nav nav-pills card-header-pills space-between bg-white">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="loadAbout()">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="loadStats()">Base Stats</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Evolutions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="loadMoves()">Moves</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-container" id="card-container">
-                    <div class="evolution-container">
-                        <div class="evolution"></div>
-                        <div class="evolution"></div>
-                        <div class="evolution"></div>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-
-}
+//     cardOverlay.innerHTML = `
+//     <div id="pokedex" style="background-color: ${backgroundColor};">
+//         <div class="navigation">
+//             <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
+//                 <img src="./img/like.png" id="like">
+//                 </div>
+//                 <div class="pokemonNameContainer">
+//                     <h1 id="pokemonName">${overlayName}</h1>
+//                     <div class="pokemonNumberContainer">
+//                         <p class="pokemonNumber" id="pokemonNumber${i}">${overlayNumber}</p>
+//                     </div>
+//                 </div>
+//                 <div class="typeContainer">
+//                     <button class="typeButton" id="overlay_typeOne_${i}">${pokemonType_1}</button>
+//                     <button class="typeButton" id="overlay_typeTwo_${i}">${pokemonType_2}</button>
+//                 </div>
+//                 <div class="pokemonSpriteContainer">
+//                     <img id="pokemonSprite${i}" src="${spriteURL}">
+//                 </div>
+//         </div>
+//         <div class="info-container">
+//             <div class="card text-center no-border c-black w-100">
+//                 <div class="card-header no-border bg-white">
+//                     <ul class="nav nav-pills card-header-pills space-between bg-white">
+//                         <li class="nav-item">
+//                             <a class="nav-link" href="#" onclick="loadAbout()">About</a>
+//                         </li>
+//                         <li class="nav-item">
+//                             <a class="nav-link" href="#" onclick="loadStats()">Base Stats</a>
+//                         </li>
+//                         <li class="nav-item">
+//                             <a class="nav-link" href="#">Evolutions</a>
+//                         </li>
+//                         <li class="nav-item">
+//                             <a class="nav-link" href="#" onclick="loadMoves()">Moves</a>
+//                         </li>
+//                     </ul>
+//                 </div>
+//                 <div class="card-container" id="card-container">
+//                     <div class="evolution-container">
+//                         <div class="evolution"></div>
+//                         <div class="evolution"></div>
+//                         <div class="evolution"></div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>`;
+// }
