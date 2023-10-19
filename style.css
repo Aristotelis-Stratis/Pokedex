@@ -299,7 +299,7 @@ body {
     flex-direction: column;
     border: 2px solid white;
     border-radius: 20px;
-    z-index: 1001;
+    z-index: 2001;
     max-width: 525px;
     position: fixed;
     margin-left: auto;

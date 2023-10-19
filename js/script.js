@@ -1,8 +1,8 @@
 let currentPokemon;
-let offset = 0;
 let firstPokemon = 0;
-let allPokemon = 20;
+let allPokemon = 10;
 
+// =========================== COLORS ===========================
 const typeColors = {
     "normal": "rgba(168, 167, 122, 1)",
     "fire": "rgba(238, 129, 48, 1)",
@@ -24,19 +24,18 @@ const typeColors = {
     "fairy": "rgba(214, 133, 173, 1)"
 };
 
+// =========================== LOAD ===========================
 async function loadPokemon() {
-    for (let i = firstPokemon + 1; i <= allPokemon; i++) {
+    for (let i = 1; i <= allPokemon; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         currentPokemon = await response.json();
-
         console.log('Loaded Pokemon', currentPokemon);
         renderPokemon(i);
     }
 }
 
 // =========================== RENDER ===========================
-
 function renderPokemon(i) {
     let pokemonCard = document.getElementById('card-content');
     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
@@ -45,8 +44,8 @@ function renderPokemon(i) {
     let pokemonNumber = '#' + currentPokemon['id'];
     capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
     let backgroundColor = typeColors[pokemonType_1].replace("1)", "0.75)") || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
-    const spriteURL = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-    const cardHTML = createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL, currentPokemon);
+    let spriteURL = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+    let cardHTML = createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL, currentPokemon);
     pokemonCard.innerHTML += cardHTML;
 
     let typeOneButton = document.getElementById(`typeOne_${i}`);
@@ -57,7 +56,6 @@ function renderPokemon(i) {
 }
 
 // =========================== RENDER OVERLAY ===========================
-
 function renderOverlayPokemon() {
     let overlayCard = document.getElementById('card-overlay');
     overlayCard.innerHTML = createOverlayCardHTML();
@@ -104,13 +102,7 @@ function renderPokemonStats() {
     return { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL };
 }
 
-// =========================== RENDER MOVES ===========================
-
-
-
 // =========================== LOAD CARD LINKS ===========================
-
-
 function loadStats() {
     let stats = document.getElementById('card-container');
     stats.innerHTML = '';
@@ -130,37 +122,13 @@ function loadMoves() {
 function closeOverlay() {
     let overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
-    
 }
 
 
 // =========================== LOAD MORE WITH SCROLL ===========================
-
-
+// =========================== RENDER MOVES ===========================
 // =========================== SEARCH BAR ===========================
-
-
-
-
 // =========================== LIKE ===========================
-// function like() {
-//     let like = document.getElementById('like');
-//     let likeImg = './img/like.png';
-//     let likeFullImg = './img/like_full.png';
-//     if (like.getAttribute('src') === likeImg) {
-//         like.setAttribute('src', likeFullImg);
-//         localStorage.setItem('likeStatus', 'liked');
-//     } else {
-//         like.src = likeImg;
-//         localStorage.removeItem('likeStatus');
-//     }
-// }
-// document.addEventListener('DOMContentLoaded', () => {
-//     let like = document.getElementById('like');
-//     let likeStatus = localStorage.getItem('likeStatus');
-//     if (likeStatus === 'liked') {
-//         like.setAttribute('src', './img/like_full.png');
-//     }
-// });
+
 
 

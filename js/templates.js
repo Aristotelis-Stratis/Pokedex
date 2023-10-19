@@ -1,3 +1,4 @@
+// =========================== ABOUT ===========================
 function templateAbout(height, weight, abilities) {
     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
     type = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
@@ -39,6 +40,8 @@ function templateAbout(height, weight, abilities) {
 `;
 }
 
+
+// =========================== STATS ===========================
 function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL) {
     return `
     <div class="card-body">
@@ -86,17 +89,7 @@ function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL)
     </div>`;
 }
 
-// function templateEvolutions() { }
-
-// function templateMoves() {
-//     return `
-//     <div class="card-body">
-//         <div class="attack-container" id="moves-container">
-//             <button>${currentPokemon['name']}</button>
-//        </div>
-//     </div>`;
-// }
-
+// =========================== CREATE HTML ===========================
 function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL) {
     return `
         <div class="row row-cols-4" id="${pokemonNumber} ${currentPokemon['name']}">
@@ -112,7 +105,7 @@ function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgro
                     <button class="typeButton" id="typeTwo_${i}">${pokemonType_2}</button>
                 </div>
                 <div class="colSpriteContainer">
-                    <img id="pokemonSprite" src="${spriteURL}">
+                    <img id="pokemonSprite${i}" src="${spriteURL}">
                 </div>
                 <div class="pkmnIcon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"
@@ -129,32 +122,28 @@ function createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgro
         </div>
     `;
 }
-
+// =========================== CREATE OVERLAY ===========================
 function createOverlayCardHTML(i) {
     let overlay = document.getElementById('overlay');
     let cardOverlay = document.getElementById('card-overlay');
     let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
     let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
-    let overlayNumber = '#' + currentPokemon['id'];
-    let overlayName = currentPokemon['name'];
-    let overlayTypeOneButton = document.getElementById(`typeOne_${i}`);
-    let overlayTypeTwoButton = document.getElementById(`typeTwo_${i}`);
-    capitalizedOverlayName = overlayName.charAt(0).toUpperCase() + overlayName.slice(1);
-    const spriteURL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${i}.png`;
+    let overlayNumber = '#' + i;
+    let overlayName = [currentPokemon['name']];
+    const spriteURL = [currentPokemon['sprites']['other']['official-artwork']['front_default']];
     let backgroundColor = typeColors[pokemonType_1] || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
+    overlay.style.display = 'flex';
 
-
-    // Füllen Sie das Overlay mit den Informationen für das ausgewählte Pokémon
     cardOverlay.innerHTML = `
     <div id="pokedex" style="background-color: ${backgroundColor};">
         <div class="navigation">
             <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
-                <img src="./img/like.png" id="like" onclick="like()">
+                <img src="./img/like.png" id="like">
                 </div>
                 <div class="pokemonNameContainer">
-                    <h1 id="pokemonName">${capitalizedOverlayName}</h1>
+                    <h1 id="pokemonName">${overlayName}</h1>
                     <div class="pokemonNumberContainer">
-                        <p class="pokemonNumber" id="pokemonNumber">${overlayNumber}</p>
+                        <p class="pokemonNumber" id="pokemonNumber${i}">${overlayNumber}</p>
                     </div>
                 </div>
                 <div class="typeContainer">
@@ -193,6 +182,4 @@ function createOverlayCardHTML(i) {
             </div>
         </div>`;
 
-    // Zeigen Sie das Overlay an
-    overlay.style.display = 'flex';
 }
