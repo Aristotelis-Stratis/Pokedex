@@ -4,7 +4,6 @@ let allPokemon = 151;
 let allPokemonList = [];
 let selectedPokemon;
 
-// =========================== COLORS ===========================
 const typeColors = {
     "normal": "rgba(168, 167, 122, 1)",
     "fire": "rgba(238, 129, 48, 1)",
@@ -26,7 +25,6 @@ const typeColors = {
     "fairy": "rgba(214, 133, 173, 1)"
 };
 
-// =========================== LOAD ===========================
 async function loadPokemon() {
     for (let i = 1; i <= allPokemon; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
@@ -38,7 +36,7 @@ async function loadPokemon() {
     console.log('Loaded Pokemon', allPokemonList);
 }
 
-/// =========================== RENDER ALL POKEMON===========================
+// =========================== RENDER ALL POKEMON===========================
 
 function newRender(currentPokemon, i) {
     let pokemonCard = document.getElementById('card-content');
@@ -92,80 +90,224 @@ function newRender(currentPokemon, i) {
     pokemonCard.appendChild(entry);
 }
 
-// =========================== RENDER OVERLAY ===========================
-function renderOverlayPokemon(i) {
+// =========================== OVERLAY ===========================
+function renderOverlayPokemon(currentPokemon) {
     let overlayCard = document.getElementById('card-overlay');
-    overlayCard.innerHTML = createOverlayCardHTML(i);
+    overlayCard.innerHTML = createOverlayCardHTML(currentPokemon);
+    loadAbout();
+    
 }
 
-// =========================== RENDER BUTTON TYPE ===========================
-function setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemonType_2) {
-    typeOneButton.innerHTML = pokemonType_1.charAt(0).toUpperCase() + pokemonType_1.slice(1);
+function createOverlayCardHTML(currentPokemon) {
+    selectedPokemon = currentPokemon;
+    const pokemonName = currentPokemon.name;
+    const capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+    const pokemonNumber = '#' + currentPokemon.id.toString().padStart(3, '0');
+    const typeOne = currentPokemon.types[0].type.name;
+    const typeTwo = currentPokemon.types[1] ? currentPokemon.types[1].type.name : '';
+    const backgroundColorTypeOne = typeColors[typeOne].replace("1)", "0.75)") || "rgba(0, 0, 0, 1";
+    const backgroundColorTypeTwo = typeTwo ? (typeColors[typeTwo].replace("1)", "0.95)") || "rgba(0, 0, 0, 1") : '';
+    const backgroundColor = typeColors[typeOne].replace("1)", "0.95)") || "rgba(0, 0, 0, 1";
+    const spriteURL = currentPokemon.sprites.other["official-artwork"].front_default;
 
-    if (pokemonType_1) {
-        typeOneButton.style.backgroundColor = typeColors[pokemonType_1].replace("1)", "0.8)");
-    }
+    return `
+        <div id="pokedex" style="background-color: ${backgroundColor};">
+            <div class="navigation">
+                <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
+                <img src="./img/like.png" id="like">
+            </div>
+            <div class="pokemonNameContainer">
+                <h1 id="pokemonName">${capitalizedPokemonName}</h1>
+                <div class="pokemonNumberContainer">
+                    <p class="pokemonNumber">${pokemonNumber}</p>
+                </div>
+            </div>
+            <div class="typeContainer">
+                <button class="typeButton" id="overlay_typeOne" style="background-color: ${backgroundColorTypeOne}">
+                    ${typeOne.charAt(0).toUpperCase() + typeOne.slice(1)}
+                </button>
+                ${typeTwo ? `
+                    <button class="typeButton" id="overlay_typeTwo" style="background-color: ${backgroundColorTypeTwo}">
+                        ${typeTwo.charAt(0).toUpperCase() + typeTwo.slice(1)}
+                    </button>` : ''}
+            </div>
+            <div class="pokemonSpriteContainer">
+                <img id="pokemonSprite" src="${spriteURL}">
+            </div>
+        </div>
+        <div class="info-container">
+            <div class="card text-center no-border c-black w-100">
+                <div class="card-header no-border bg-white">
+                    <ul class="nav nav-pills card-header-pills space-between bg-white">
+                        <li class="nav-item">
+                            <button class="nav-link-button" onclick="loadAbout()">About</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link-button" onclick="loadStats()">Base Stats</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link-button" onclick="loadEvolutions()">Evolutions</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link-button" onclick="loadMoves()">Moves</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-container" id="card-container">
+                    <!-- Hier wird der Inhalt des ausgewählten Tabs eingefügt -->
+                </div>
+            </div>
+        </div>
+    `;
+}
 
-    if (pokemonType_2) {
-        typeTwoButton.innerHTML = pokemonType_2.charAt(0).toUpperCase() + pokemonType_2.slice(1);
-        typeTwoButton.style.backgroundColor = typeColors[pokemonType_2].replace("1)", "0.8)");
-    } else {
-        typeTwoButton.style.display = 'none';
-    }
+// =========================== CLOSE OVERLAY ===========================
+function closeOverlay() {
+    let overlayCard = document.getElementById('card-overlay');
+    document.getElementById('overlay').style.display = 'none';
+    overlayCard.innerHTML = '';
 }
 
 
-// =========================== RENDER ABOUT ===========================
+// =========================== ABOUT ===========================
+function templateAbout() {
+    let currentPokemon = selectedPokemon;
+    const height = currentPokemon.height / 10 + ' m';
+    const weight = currentPokemon.weight / 10 + ' kg';
+    const abilities = currentPokemon.abilities[0].ability.name; 
+    return `
+        <div class="card-body">
+            <div class="pkmn-info info-left">
+                <p>Height</p>
+                <p>Weight</p>
+                <p>Abilities</p>
+            </div>
+            <div class="pkmn-info info-right">
+                <p>${height}</p>
+                <p>${weight}</p>
+                <p>${abilities.charAt(0).toUpperCase() + abilities.slice(1)}</p>                             
+            </div>
+        </div>
+        <div class="card-body-title">
+            <h2>Breeding</h2>
+        </div>
+        <div class="card-body">
+            <div class="pkmn-info info-left">
+                <p>Gender</p>
+                <p>Egg Groups</p>
+                <p>Egg Cycle</p>
+            </div>
+            <div class="pkmn-info info-right">
+                <div class="gender">
+                    <div class="gender-container"><img src="./img/icons8-male-80 (1).png" alt="">
+                        <p>50%</p>
+                    </div>
+                    <div class="gender-container"><img src="./img/icons8-female-80 (1).png" alt="">
+                        <p>50%</p>
+                    </div>
+                </div>
+                <p>Monster</p>
+                <p>${currentPokemon.types[0].type.name.charAt(0).toUpperCase() + currentPokemon.types[0].type.name.slice(1)}</p>
+            </div>
+        </div>
+    `;
+}
+
 function loadAbout() {
-    let about = document.getElementById('card-container');
-    let height = currentPokemon['height'];
-    let weight = currentPokemon['weight'];
-    let abilities = currentPokemon['abilities'][0]['ability']['name'];
-    about.innerHTML = templateAbout();
-    document.getElementById('height').innerHTML = height / 10 + ' m';
-    document.getElementById('weight').innerHTML = weight / 10 + ' kg';
-    document.getElementById('abilities').innerHTML = abilities.charAt(0).toUpperCase() + abilities.slice(1);
+    const cardContainer = document.getElementById('card-container');
+    cardContainer.innerHTML = templateAbout();
 }
 
-// =========================== RENDER STATS ===========================
-function renderPokemonStats() {
-    let HP = currentPokemon['stats'][0]['base_stat'];
-    let ATTACK = currentPokemon['stats'][1]['base_stat'];
-    let DEFENSE = currentPokemon['stats'][2]['base_stat'];
-    let SP_ATTACK = currentPokemon['stats'][3]['base_stat'];
-    let SP_DEFENSE = currentPokemon['stats'][4]['base_stat'];
-    let SPEED = currentPokemon['stats'][5]['base_stat'];
-    let TOTAL = HP + ATTACK + DEFENSE + SP_ATTACK + SP_DEFENSE + SPEED;
-    return { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL };
+// ===========================  STATS ===========================
+ function getPokemonStats() {
+    let currentPokemon = selectedPokemon;
+     let HP = currentPokemon.stats[0].base_stat;
+     let ATTACK = currentPokemon.stats[1].base_stat;
+     let DEFENSE = currentPokemon.stats[2].base_stat;
+     let SP_ATTACK = currentPokemon.stats[3].base_stat;
+     let SP_DEFENSE = currentPokemon.stats[4].base_stat;
+     let SPEED = currentPokemon.stats[5].base_stat;
+     let TOTAL = HP + ATTACK + DEFENSE + SP_ATTACK + SP_DEFENSE + SPEED;
+     return { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL };
+ }
+
+
+ function loadStats() {
+     let stats = document.getElementById('card-container');
+     stats.innerHTML = '';
+     const { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL } = getPokemonStats();
+     stats.innerHTML = templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL);
+ }
+
+ 
+ function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL) {
+    return `
+    <div class="card-body">
+        <div class="pkmn-info info-left">
+            <p>HP</p>   
+            <p>Attack</p>   
+            <p>Defense</p>  
+            <p>Sp. Atk</p>  
+            <p>Sp. Def</p>  
+            <p>Speed</p>    
+            <p>Total</p>    
+        </div>
+        <div class="pkmn-info info-mid">
+            <p id="value_1">${HP}</p>
+            <p id="value_2">${ATTACK}</p>
+            <p id="value_3">${DEFENSE}</p>
+            <p id="value_4">${SP_ATTACK}</p>
+            <p id="value_5">${SP_DEFENSE}</p>
+            <p id="value_6">${SPEED}</p>
+            <p id="value_7">${TOTAL}</p>
+        </div>
+        <div class="pkmn-info info-values">
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: ${(HP / 255) * 100}%" aria-valuenow="${HP}" aria-valuemin="0" aria-valuemax="255"></div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: ${(ATTACK / 255) * 100}%" aria-valuenow="${ATTACK}" aria-valuemin="0" aria-valuemax="255"></div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: ${(DEFENSE / 255) * 100}%" aria-valuenow="${DEFENSE}" aria-valuemin="0" aria-valuemax="255"></div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: ${(SP_ATTACK / 255) * 100}%" aria-valuenow="${SP_ATTACK}" aria-valuemin="0" aria-valuemax="255"></div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: ${(SP_DEFENSE / 255) * 100}%" aria-valuenow="${SP_DEFENSE}" aria-valuemin="0" aria-valuemax="255"></div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: ${(SPEED / 255) * 100}%" aria-valuenow="${SPEED}" aria-valuemin="0" aria-valuemax="255"></div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: ${(TOTAL / 720) * 100}%" aria-valuenow="${TOTAL}" aria-valuemin="0" aria-valuemax="720"></div>
+            </div>
+        </div>
+    </div>`;
 }
 
-// =========================== LOAD CARD LINKS ===========================
-function loadStats() {
-    let stats = document.getElementById('card-container');
-    stats.innerHTML = '';
-    const { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL } = renderPokemonStats();
-    stats.innerHTML = templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL);
-}
-
-// function loadEvolutions() {}
+// =========================== RENDER MOVES ===========================
 
 function loadMoves() {
-    let moves = document.getElementById('card-container');
-    moves.innerHTML = '';
-    moves.innerHTML = templateMoves();
+    let currentPokemon = selectedPokemon; 
+    const cardContainer = document.getElementById('card-container');
+    let movesHTML = '';
+
+    for (let i = 0; i < currentPokemon.moves.length; i++) {
+        let move = currentPokemon.moves[i].move.name;
+        movesHTML += ` <li class="list-group-item">${move.charAt(0).toUpperCase() + move.slice(1)}</li>`;
+    }
+    cardContainer.innerHTML = `
+    <div class="custom-scrollbar">
+        <div class="content">
+            <ul class="list-group list-group-flush">
+                ${movesHTML}
+            </ul>
+        </div>
+    </div>
+    `;
 }
-
-// =========================== CLOSE CARD ===========================
-function closeOverlay() {
-    let overlay = document.getElementById('overlay');
-    overlay.style.display = 'none';
-}
-
-
-// =========================== LOAD MORE WITH SCROLL ===========================
-// =========================== RENDER MOVES ===========================
-// =========================== SEARCH BAR ===========================
-// =========================== LIKE ===========================
-
+// =========================== EVOLUTIONS ===========================
 
 

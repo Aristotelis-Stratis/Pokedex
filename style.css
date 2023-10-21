@@ -66,7 +66,8 @@ body {
     color: white;
     border: none;
     margin-right: 5px;
-    border-radius: 15px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .pokemonNameContainer {
@@ -152,17 +153,20 @@ body {
 /* .inactive {
     color:grey !important;
 } */
-.nav-item a {
+.nav-link-button {
     color: black !important;
+    background-color: white !important;
     font-size: 20px !important;
+    border: none;
+    font-weight: bold;
 }
 
-.nav-item a:hover {
+.nav-link-button:hover {
     background-color: white !important;
     text-decoration: underline !important;
     text-decoration-color: blue !important;
     text-decoration-thickness: 2px !important;
-    text-underline-offset: 22px;
+    text-underline-offset: 18px;
 }
 
 .active {
@@ -182,9 +186,10 @@ body {
 
 .card-container {
     display: flex;
-    flex-direction: column;
     padding-left: 15px;
     padding-right: 15px;
+    max-height: 350px;
+    flex-direction: column;
 }
 
 .card-body {
@@ -297,7 +302,7 @@ body {
     scale: 70%;
     display: flex;
     flex-direction: column;
-    border: 2px solid white;
+    /* border: 1px solid white; */
     border-radius: 20px;
     z-index: 2001;
     max-width: 525px;
@@ -355,6 +360,8 @@ body {
     height: 350px !important;
     z-index: 1000;
     background-color: grey;
+    padding:10px;
+    flex: unset !important;
 }
 
 .colSpriteContainer:hover {
@@ -429,4 +436,68 @@ body {
     position: fixed;
     z-index: 2000;
     background-color: rgb(255 255 255 / 40%);
+}
+
+.btn {
+    border-radius: 15px !important;
+    color:black !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    background-color: white !important;
+}
+.btn:hover {
+    scale: 110%
+}
+#overlay_typeOne, #overlay_typeTwo {
+    border: 1px solid white;
+    font-size: 16px;
+}
+
+.btn-group {
+    gap: 10px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    vertical-align: middle;
+    padding-top: 30px;
+}
+
+
+.custom-scrollbar {
+    overflow: auto; 
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 30px; 
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #f1f1f1; 
+    border-radius: 12px; 
+    border: 0px solid #555; 
+  }  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f8f8f8;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:vertical {
+    height: 30px;
+    background: url('./img/pokeball.png') no-repeat center;
+    background-size: 30px;
+    background-position: top; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:vertical:active {
+    background: url('./img/pokeball.png') no-repeat center;
+    background-size: 30px;
+    background-position: bottom;
+}
+
+.list-group-item {
+    font-weight: 500;
+    font-size: 17px;
+    color: lightgrey;
+    
 }
