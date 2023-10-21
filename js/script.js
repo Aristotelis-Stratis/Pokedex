@@ -1,8 +1,8 @@
 let currentPokemon;
 let firstPokemon = 0;
-let allPokemon = 10;
-let allPokemonObjects = [];
-let i;
+let allPokemon = 151;
+let allPokemonList = [];
+let selectedPokemon;
 
 // =========================== COLORS ===========================
 const typeColors = {
@@ -31,22 +31,18 @@ async function loadPokemon() {
     for (let i = 1; i <= allPokemon; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
-        currentPokemon = await response.json();
-        allPokemonObjects.push(currentPokemon);
-        console.log('Loaded Pokemon', currentPokemon);
-        renderPokemon(i);
-
-
-        // eine For-Schleife bauen, die alle Elemente jedes Pokemon rendert weil alles über 0 = undefined ist. 
-        // Nach der For-Schleife alle HTML Sachen einzelnt rendern das heißt Typen in typeHTML(),moves() usw
+        let currentPokemon = await response.json();
+        allPokemonList.push(currentPokemon);
+        newRender(currentPokemon, i);
     }
+    console.log('Loaded Pokemon', allPokemonList);
 }
 
 // =========================== RENDER ===========================
 function renderPokemon(i) {
     let pokemonCard = document.getElementById('card-content');
-    let pokemonType_1 = allPokemonObjects[0]['types'][0]['type']['name'];
-    let pokemonType_2 = allPokemonObjects[0]['types'].length > 1 ? allPokemonObjects[0]['types'][1]['type']['name'] : '';
+    let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
+    let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
     let pokemonName = currentPokemon['name'];
     let pokemonNumber = '#' + currentPokemon['id'];
     capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
