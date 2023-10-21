@@ -38,24 +38,58 @@ async function loadPokemon() {
     console.log('Loaded Pokemon', allPokemonList);
 }
 
-// =========================== RENDER ===========================
-function renderPokemon(i) {
+/// =========================== RENDER ALL POKEMON===========================
+
+function newRender(currentPokemon, i) {
     let pokemonCard = document.getElementById('card-content');
-    let pokemonType_1 = currentPokemon['types'][0]['type']['name'];
-    let pokemonType_2 = currentPokemon['types'].length > 1 ? currentPokemon['types'][1]['type']['name'] : '';
-    let pokemonName = currentPokemon['name'];
-    let pokemonNumber = '#' + currentPokemon['id'];
-    capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
-    let backgroundColor = typeColors[pokemonType_1].replace("1)", "0.75)") || "rgba(0, 0, 0, 1"; // Default color if type not found in typeColors
-    let spriteURL = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-    let cardHTML = createPokemonCardHTML(i, pokemonNumber, capitalizedPokemonName, backgroundColor, pokemonType_1, pokemonType_2, spriteURL);
-    pokemonCard.innerHTML += cardHTML;
+    const pokemonName = currentPokemon.name;
+    const capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+    const pokemonNumber = '#' + currentPokemon.id.toString().padStart(3, '0');
+    const typeOne = currentPokemon.types[0].type.name;
+    const typeTwo = currentPokemon.types[1] ? currentPokemon.types[1].type.name : '';
+    let backgroundColor = typeColors[typeOne].replace("1)", "0.75)") || "rgba(0, 0, 0, 1";
+    const spriteURL = currentPokemon.sprites.other["official-artwork"].front_default;
 
-    let typeOneButton = document.getElementById(`typeOne_${i}`);
-    let typeTwoButton = document.getElementById(`typeTwo_${i}`);
+    const typeButtonsHTML = `
+    <button class="typeButton" style="background-color: ${typeColors[typeOne].replace("1)", "0.75)")}">${typeOne.charAt(0).toUpperCase() + typeOne.slice(1)}</button>
+    ${typeTwo ? `<button class="typeButton" style="background-color: ${typeColors[typeTwo].replace("1)", "0.75)")}">${typeTwo.charAt(0).toUpperCase() + typeTwo.slice(1)}</button>` : ''}
+    `;
+    const entry = document.createElement("div");
+    entry.className = "col";
+    entry.id = `entry ${`#`+ i}`;
+    entry.style.backgroundColor = backgroundColor;
+    entry.onclick = function () {
+        renderOverlayPokemon(currentPokemon);
+        document.getElementById('overlay').style.display = 'flex';
+    };
 
-    // Adjusting button properties
-    setButtonProperties(typeOneButton, typeTwoButton, pokemonType_1, pokemonType_2);
+    entry.innerHTML = `
+        <div class="colNameContainer">
+            <h2 id="pokemonName">${capitalizedPokemonName}</h2>
+            <div class="colNumberContainer">
+                <p class="colNumber" id="pokemonNumber">${pokemonNumber}</p>
+            </div>
+        </div>
+        <div class="colTypeContainer">
+        ${typeButtonsHTML}
+    </div>
+        <div class="colSpriteContainer">
+            <img id="pokemonSprite${i}" src="${spriteURL}">
+        </div>
+        <div class="pkmnIcon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"
+                style="transform: rotate(-15deg);">
+                <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255, 255, 255, 0.6)"
+                    stroke-width="10" />
+                <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(255, 255, 255, 0.6)"
+                    stroke-width="10" />
+                <rect x="25" y="90" width="41" height="15" fill="rgba(255, 255, 255, 0.5)" />
+                <rect x="134" y="90" width="41" height="15" fill="rgba(255, 255, 255, 0.5)" />
+            </svg>
+        </div>
+    `;
+
+    pokemonCard.appendChild(entry);
 }
 
 // =========================== RENDER OVERLAY ===========================
