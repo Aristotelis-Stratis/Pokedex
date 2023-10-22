@@ -114,8 +114,11 @@ function createOverlayCardHTML(currentPokemon) {
     return `
         <div id="pokedex" style="background-color: ${backgroundColor};">
             <div class="navigation">
+                <div class="close-nav">
+                    <img src="./img/x.png" style="background-color: ${typeColors[typeOne]};" onclick="closeOverlay()">
+                </div>
                 <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
-                <img src="./img/like.png" id="like">
+                <img src="./img/arrow-right-white.png" id="like">
             </div>
             <div class="pokemonNameContainer">
                 <h1 id="pokemonName">${capitalizedPokemonName}</h1>
@@ -200,10 +203,10 @@ function templateAbout() {
             </div>
             <div class="pkmn-info info-right">
                 <div class="gender">
-                    <div class="gender-container"><img src="./img/icons8-male-80 (1).png" alt="">
+                    <div class="gender-container"><img src="./img/male.png" alt="">
                         <p>50%</p>
                     </div>
-                    <div class="gender-container"><img src="./img/icons8-female-80 (1).png" alt="">
+                    <div class="gender-container"><img src="./img/female.png" alt="">
                         <p>50%</p>
                     </div>
                 </div>
@@ -310,5 +313,4 @@ function loadMoves() {
     `;
 }
 // =========================== EVOLUTIONS ===========================
-
 

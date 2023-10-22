@@ -52,6 +52,17 @@ body {
     cursor: pointer;
 }
 
+.close-nav {
+    display: flex;
+    position: absolute;
+    top: -20px;
+    right: -10px;
+}
+.close-nav img {
+    width: 50px;
+    border-radius: 30px;
+}
+
 .typeButton {
     background-color: rgb(255 255 255 / 20%);
     width: 83px;
@@ -550,6 +561,9 @@ body {
     .nav {
         display: flex;
         gap: 10px;
+    }
+    .close-nav img {
+        width: 40px;
     }
 
     .nav-item button {
