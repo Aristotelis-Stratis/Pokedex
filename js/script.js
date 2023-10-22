@@ -1,8 +1,9 @@
 let currentPokemon;
 let firstPokemon = 0;
-let allPokemon = 151;
+let allPokemon = 10;
 let allPokemonList = [];
 let selectedPokemon;
+
 
 const typeColors = {
     "normal": "rgba(168, 167, 122, 1)",
