@@ -307,10 +307,10 @@ body {
     position: fixed;
     margin-left: auto;
     margin-right: auto;
-    left: 0;
+    /* left: 0;
     right: 0;
     top: 0;
-    bottom: 0;
+    bottom: 0; */
 }
 
 /*MAIN PAGE*/
@@ -358,7 +358,6 @@ body {
 
 /*titlecard*/
 .col {
-    /* border: 2px solid black; */
     border-radius: 20px;
     width: 225px !important;
     height: 350px !important;
@@ -435,12 +434,13 @@ body {
 
 .overlay {
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     position: fixed;
     z-index: 2000;
-    background-color: rgb(255 255 255 / 40%);
-}
+    background-color: rgb(27 37 47 / 90%);}
 
 .btn {
     border-radius: 15px !important;
@@ -561,7 +561,7 @@ body {
     }
 
     .info-container {
-        height: 425px;
+        height: 350px;
         padding: 15px;
     }
 
