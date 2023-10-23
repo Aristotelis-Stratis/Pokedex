@@ -117,9 +117,15 @@ function createOverlayCardHTML(currentPokemon) {
 
     return `
         <div id="pokedex" style="background-color: ${backgroundColor};">
-                    <div class="close-nav">
-                    <img src="./img/x.png" style="background-color: ${typeColors[typeOne]};" onclick="closeOverlay()">
-                    </div>
+            <div class="close-nav">
+                <img src="./img/x.png" style="background-color: ${typeColors[typeOne]};" onclick="closeOverlay()">
+            </div>
+            <div class="navigation arrow-left">
+            <img src="./img/arrow-left-white.png" onclick="previousPokemon()">
+            </div>
+            <div class="navigation arrow-right">
+            <img src="./img/arrow-right-white.png" onclick="nextPokemon()">
+            </div>
             <div class="pokemonNameContainer">
                 <h1 id="pokemonName">${capitalizedPokemonName}</h1>
                 <div class="pokemonNumberContainer">
