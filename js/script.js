@@ -3,7 +3,7 @@ let firstPokemon = 0;
 let allPokemon = 10;
 let allPokemonList = [];
 let selectedPokemon;
-
+let currentPokemonIndex = 0;
 
 const typeColors = {
     "normal": "rgba(168, 167, 122, 1)",
@@ -38,7 +38,6 @@ async function loadPokemon() {
 }
 
 // =========================== RENDER ALL POKEMON===========================
-
 function newRender(currentPokemon, i) {
     let pokemonCard = document.getElementById('card-content');
     const pokemonName = currentPokemon.name;
@@ -55,10 +54,14 @@ function newRender(currentPokemon, i) {
     `;
     const entry = document.createElement("div");
     entry.className = "col";
-    entry.id = `entry ${`#`+ i}`;
+    entry.setAttribute('data-index', i - 1); // Index beginnt bei 0
+    entry.id = `entry ${`#` + i}`;
     entry.style.backgroundColor = backgroundColor;
     entry.onclick = function () {
         renderOverlayPokemon(currentPokemon);
+        document.getElementById('overlay').style.display = 'flex';
+        currentPokemonIndex = parseInt(this.getAttribute('data-index')); // Setze currentPokemonIndex auf den geklickten Index
+        renderOverlayPokemon(allPokemonList[currentPokemonIndex]);
         document.getElementById('overlay').style.display = 'flex';
     };
 
@@ -87,7 +90,6 @@ function newRender(currentPokemon, i) {
             </svg>
         </div>
     `;
-
     pokemonCard.appendChild(entry);
 }
 
@@ -96,7 +98,7 @@ function renderOverlayPokemon(currentPokemon) {
     let overlayCard = document.getElementById('card-overlay');
     overlayCard.innerHTML = createOverlayCardHTML(currentPokemon);
     loadAbout();
-    
+
 }
 
 function createOverlayCardHTML(currentPokemon) {
@@ -117,8 +119,8 @@ function createOverlayCardHTML(currentPokemon) {
                 <div class="close-nav">
                     <img src="./img/x.png" style="background-color: ${typeColors[typeOne]};" onclick="closeOverlay()">
                 </div>
-                <img src="./img/arrow-left-white.png" onclick="closeOverlay()">
-                <img src="./img/arrow-right-white.png" id="like">
+                <img src="./img/arrow-left-white.png" onclick="previousPokemon()">
+                <img src="./img/arrow-right-white.png" onclick="nextPokemon()">
             </div>
             <div class="pokemonNameContainer">
                 <h1 id="pokemonName">${capitalizedPokemonName}</h1>
@@ -158,7 +160,6 @@ function createOverlayCardHTML(currentPokemon) {
                     </ul>
                 </div>
                 <div class="card-container" id="card-container">
-                    <!-- Hier wird der Inhalt des ausgewählten Tabs eingefügt -->
                 </div>
             </div>
         </div>
@@ -173,12 +174,31 @@ function closeOverlay() {
 }
 
 
+// =========================== NEXT POKEMON ===========================
+
+function nextPokemon() {
+    if (currentPokemonIndex < allPokemonList.length - 1) {
+        currentPokemonIndex++; // Erhöhe den Index
+        const nextPokemon = allPokemonList[currentPokemonIndex];
+        renderOverlayPokemon(nextPokemon); // Anzeigen des nächsten Pokemons
+    }
+}
+
+// =========================== PREVIOUS POKEMON ===========================
+function previousPokemon() {
+    if (currentPokemonIndex > 0) {
+        currentPokemonIndex--;
+        renderOverlayPokemon(allPokemonList[currentPokemonIndex]);
+    }
+}
+
+
 // =========================== ABOUT ===========================
 function templateAbout() {
     let currentPokemon = selectedPokemon;
     const height = currentPokemon.height / 10 + ' m';
     const weight = currentPokemon.weight / 10 + ' kg';
-    const abilities = currentPokemon.abilities[0].ability.name; 
+    const abilities = currentPokemon.abilities[0].ability.name;
     return `
         <div class="card-body">
             <div class="pkmn-info info-left">
@@ -222,29 +242,29 @@ function loadAbout() {
     cardContainer.innerHTML = templateAbout();
 }
 
-// ===========================  STATS ===========================
- function getPokemonStats() {
+// =========================== STATS ===========================
+function getPokemonStats() {
     let currentPokemon = selectedPokemon;
-     let HP = currentPokemon.stats[0].base_stat;
-     let ATTACK = currentPokemon.stats[1].base_stat;
-     let DEFENSE = currentPokemon.stats[2].base_stat;
-     let SP_ATTACK = currentPokemon.stats[3].base_stat;
-     let SP_DEFENSE = currentPokemon.stats[4].base_stat;
-     let SPEED = currentPokemon.stats[5].base_stat;
-     let TOTAL = HP + ATTACK + DEFENSE + SP_ATTACK + SP_DEFENSE + SPEED;
-     return { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL };
- }
+    let HP = currentPokemon.stats[0].base_stat;
+    let ATTACK = currentPokemon.stats[1].base_stat;
+    let DEFENSE = currentPokemon.stats[2].base_stat;
+    let SP_ATTACK = currentPokemon.stats[3].base_stat;
+    let SP_DEFENSE = currentPokemon.stats[4].base_stat;
+    let SPEED = currentPokemon.stats[5].base_stat;
+    let TOTAL = HP + ATTACK + DEFENSE + SP_ATTACK + SP_DEFENSE + SPEED;
+    return { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL };
+}
 
 
- function loadStats() {
-     let stats = document.getElementById('card-container');
-     stats.innerHTML = '';
-     const { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL } = getPokemonStats();
-     stats.innerHTML = templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL);
- }
+function loadStats() {
+    let stats = document.getElementById('card-container');
+    stats.innerHTML = '';
+    const { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL } = getPokemonStats();
+    stats.innerHTML = templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL);
+}
 
- 
- function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL) {
+
+function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL) {
     return `
     <div class="card-body">
         <div class="pkmn-info info-left">
@@ -291,10 +311,10 @@ function loadAbout() {
     </div>`;
 }
 
-// =========================== RENDER MOVES ===========================
+// =========================== MOVES ===========================
 
 function loadMoves() {
-    let currentPokemon = selectedPokemon; 
+    let currentPokemon = selectedPokemon;
     const cardContainer = document.getElementById('card-container');
     let movesHTML = '';
 
@@ -312,5 +332,4 @@ function loadMoves() {
     </div>
     `;
 }
-// =========================== EVOLUTIONS ===========================
 
