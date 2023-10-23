@@ -97,6 +97,7 @@ function newRender(currentPokemon, i) {
 function renderOverlayPokemon(currentPokemon) {
     let overlayCard = document.getElementById('card-overlay');
     overlayCard.innerHTML = createOverlayCardHTML(currentPokemon);
+    document.body.style.overflow = 'hidden';
     loadAbout();
 
 }
@@ -121,10 +122,10 @@ function createOverlayCardHTML(currentPokemon) {
                 <img src="./img/x.png" style="background-color: ${typeColors[typeOne]};" onclick="closeOverlay()">
             </div>
             <div class="navigation arrow-left">
-            <img src="./img/arrow-left-white.png" onclick="previousPokemon()">
+            <img src="./img/arrow-left.png" onclick="previousPokemon()">
             </div>
             <div class="navigation arrow-right">
-            <img src="./img/arrow-right-white.png" onclick="nextPokemon()">
+            <img src="./img/arrow-right.png" onclick="nextPokemon()">
             </div>
             <div class="pokemonNameContainer">
                 <h1 id="pokemonName">${capitalizedPokemonName}</h1>
@@ -174,6 +175,7 @@ function createOverlayCardHTML(currentPokemon) {
 function closeOverlay() {
     let overlayCard = document.getElementById('card-overlay');
     document.getElementById('overlay').style.display = 'none';
+    document.body.style.overflow = 'auto';
     overlayCard.innerHTML = '';
 }
 
