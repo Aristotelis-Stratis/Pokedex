@@ -40,9 +40,9 @@ body {
 
 .navigation {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     padding-top: 10px;
-    padding-bottom: 25px;
+    padding-bottom: 10px;
     /* border: 2px solid blue; */
     width: 100%;
 }
@@ -54,11 +54,11 @@ body {
 
 .close-nav {
     display: flex;
-    position: absolute;
-    top: -20px;
-    right: -10px;
+    justify-content: end;
 }
+
 .close-nav img {
+    cursor: pointer;
     width: 50px;
     border-radius: 30px;
 }
@@ -335,6 +335,7 @@ body {
     color: white;
     height: 100px;
 }
+
 .header-img {
     width: 250px;
 }
@@ -348,11 +349,13 @@ body {
     background-color: rgb(27, 37, 47);
     border: 2px solid #fb6c6c
 }
+
 .content {
     background-color: rgb(10, 20, 30, 20%);
-    height:fit-content;
+    height: fit-content;
     padding-bottom: 31px;
 }
+
 .pokedex-home {
     display: flex;
     flex-wrap: wrap;
@@ -378,7 +381,13 @@ body {
     flex: unset !important;
 }
 
-.colSpriteContainer:hover {
+.col:hover {
+    transform: scale(1.05);
+    transition: transform 250ms;
+    border: 3px solid rgb(255, 255, 66);
+}
+
+.col:hover .colSpriteContainer {
     transform: scale(1.2);
     transition: transform 250ms;
 }
@@ -451,7 +460,8 @@ body {
     height: 100vh;
     position: fixed;
     z-index: 2000;
-    background-color: rgb(27 37 47 / 90%);}
+    background-color: rgb(27 37 47 / 90%);
+}
 
 .btn {
     border-radius: 15px !important;
@@ -541,12 +551,21 @@ body {
         height: auto;
     }
 
+    .navigation {
+        padding-bottom: 5px;
+    }
+
     .navigation img {
         width: 25px;
     }
 
+    .pokemonSpriteContainer {
+        top: -20px;
+    }
+
     .pokemonSpriteContainer img {
         width: 190px;
+        z-index: 2000;
     }
 
     .card {
@@ -562,6 +581,7 @@ body {
         display: flex;
         gap: 10px;
     }
+
     .close-nav img {
         width: 40px;
     }

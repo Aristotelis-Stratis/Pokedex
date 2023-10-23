@@ -1,6 +1,6 @@
 let currentPokemon;
 let firstPokemon = 0;
-let allPokemon = 10;
+let allPokemon = 100;
 let allPokemonList = [];
 let selectedPokemon;
 let currentPokemonIndex = 0;
@@ -117,13 +117,9 @@ function createOverlayCardHTML(currentPokemon) {
 
     return `
         <div id="pokedex" style="background-color: ${backgroundColor};">
-            <div class="navigation">
-                <div class="close-nav">
+                    <div class="close-nav">
                     <img src="./img/x.png" style="background-color: ${typeColors[typeOne]};" onclick="closeOverlay()">
-                </div>
-                <img src="./img/arrow-left-white.png" onclick="previousPokemon()">
-                <img src="./img/arrow-right-white.png" onclick="nextPokemon()">
-            </div>
+                    </div>
             <div class="pokemonNameContainer">
                 <h1 id="pokemonName">${capitalizedPokemonName}</h1>
                 <div class="pokemonNumberContainer">
