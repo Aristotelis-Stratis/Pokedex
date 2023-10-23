@@ -111,6 +111,8 @@ function createOverlayCardHTML(currentPokemon) {
     const backgroundColorTypeOne = typeColors[typeOne].replace("1)", "0.75)") || "rgba(0, 0, 0, 1";
     const backgroundColorTypeTwo = typeTwo ? (typeColors[typeTwo].replace("1)", "0.95)") || "rgba(0, 0, 0, 1") : '';
     const backgroundColor = typeColors[typeOne].replace("1)", "0.95)") || "rgba(0, 0, 0, 1";
+    let overlayCard = document.getElementById('card-overlay');
+    overlayCard.style.border = `1px solid ${backgroundColor}`;
     const spriteURL = currentPokemon.sprites.other["official-artwork"].front_default;
 
     return `
@@ -173,9 +175,7 @@ function closeOverlay() {
     overlayCard.innerHTML = '';
 }
 
-
 // =========================== NEXT POKEMON ===========================
-
 function nextPokemon() {
     if (currentPokemonIndex < allPokemonList.length - 1) {
         currentPokemonIndex++; // Erhöhe den Index
