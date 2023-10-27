@@ -45,7 +45,7 @@ function newRender(currentPokemon, i) {
     const pokemonNumber = '#' + currentPokemon.id.toString().padStart(3, '0');
     const typeOne = currentPokemon.types[0].type.name;
     const typeTwo = currentPokemon.types[1] ? currentPokemon.types[1].type.name : '';
-    let backgroundColor = typeColors[typeOne].replace("1)", "0.75)") || "rgba(0, 0, 0, 1";
+    let backgroundColor = typeColors[typeOne].replace("1)", "0.85)") || "rgba(0, 0, 0, 1";
     const spriteURL = currentPokemon.sprites.other["official-artwork"].front_default;
 
     const typeButtonsHTML = `
@@ -111,7 +111,7 @@ function createOverlayCardHTML(currentPokemon) {
     const typeTwo = currentPokemon.types[1] ? currentPokemon.types[1].type.name : '';
     const backgroundColorTypeOne = typeColors[typeOne].replace("1)", "0.75)") || "rgba(0, 0, 0, 1";
     const backgroundColorTypeTwo = typeTwo ? (typeColors[typeTwo].replace("1)", "0.95)") || "rgba(0, 0, 0, 1") : '';
-    const backgroundColor = typeColors[typeOne].replace("1)", "0.95)") || "rgba(0, 0, 0, 1";
+    const backgroundColor = typeColors[typeOne].replace("1)", "0.85)") || "rgba(0, 0, 0, 1";
     let overlayCard = document.getElementById('card-overlay');
     overlayCard.style.border = `1px solid ${backgroundColor}`;
     const spriteURL = currentPokemon.sprites.other["official-artwork"].front_default;
@@ -328,7 +328,7 @@ function loadMoves() {
     }
     cardContainer.innerHTML = `
     <div class="custom-scrollbar">
-        <div class="content">
+        <div class="content-moves">
             <ul class="list-group list-group-flush">
                 ${movesHTML}
             </ul>
