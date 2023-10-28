@@ -61,6 +61,7 @@ body {
     width: 45px;
     height: 45px;
     cursor: pointer;
+    border-radius: 25px;
 }
 
 .close-nav {
@@ -170,9 +171,25 @@ body {
     width: 100%;
 }
 
-/* .inactive {
-    color:grey !important;
-} */
+.loadMoreButton {
+    border: 2px solid #f44336;
+    border-radius: 15px;
+    background-color: #f4511e;
+    color: black;
+    width: 225px !important;
+    height: 50px;
+    transition-duration: 0.4s;
+    opacity: 0.9;
+}
+
+.loadMoreButton:hover {
+    background-color: #f44336;
+    /* Green */
+    color: white;
+    opacity: 1;
+
+}
+
 .nav-link-button {
     color: black !important;
     background-color: white !important;
@@ -390,12 +407,13 @@ body {
     background-color: grey;
     padding: 10px;
     flex: unset !important;
+    overflow:hidden;
 }
 
 .col:hover {
     transform: scale(1.05);
     transition: transform 250ms;
-    border: 3px solid rgb(255, 255, 66);
+    border: 2px solid rgba(255, 255, 255, 0.466);
 }
 
 .col:hover .colSpriteContainer {
@@ -458,9 +476,22 @@ body {
     justify-content: center;
     z-index: 999;
 }
+.pkmnIcon img {
+    width: 400px;
+    position: absolute;
+    left: -20px;
+    top: 10px;
+    z-index: 999;
+}
 
 .row {
     gap: 10px;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    justify-content: center;
+    background-color: rgb(27, 37, 47);
+    padding-top: 15px;
+    padding-bottom: 30px;
 }
 
 .overlay {

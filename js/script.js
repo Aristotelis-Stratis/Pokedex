@@ -27,7 +27,7 @@ const typeColors = {
 };
 
 async function loadPokemon() {
-    for (let i = 1; i <= allPokemon; i++) {
+    for (let i = firstPokemon + 1; i <= firstPokemon + 10; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         let currentPokemon = await response.json();
@@ -79,15 +79,7 @@ function newRender(currentPokemon, i) {
             <img id="pokemonSprite${i}" src="${spriteURL}">
         </div>
         <div class="pkmnIcon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"
-                style="transform: rotate(-15deg);">
-                <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255, 255, 255, 0.6)"
-                    stroke-width="10" />
-                <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(255, 255, 255, 0.6)"
-                    stroke-width="10" />
-                <rect x="25" y="90" width="41" height="15" fill="rgba(255, 255, 255, 0.5)" />
-                <rect x="134" y="90" width="41" height="15" fill="rgba(255, 255, 255, 0.5)" />
-            </svg>
+            <img src="./img/pokeball_BG.png"">
         </div>
     `;
     pokemonCard.appendChild(entry);
@@ -119,13 +111,13 @@ function createOverlayCardHTML(currentPokemon) {
     return `
         <div id="pokedex" style="background-color: ${backgroundColor};">
             <div class="close-nav">
-                <img src="./img/x.png" style="background-color: ${typeColors[typeOne]};" onclick="closeOverlay()">
+                <img src="./img/x.png"  onclick="closeOverlay()">
             </div>
             <div class="navigation arrow-left">
-            <img src="./img/arrow-left.png" onclick="previousPokemon()">
+            <img src="./img/arrow-left.png" style="background-color: ${backgroundColor};" onclick="previousPokemon()">
             </div>
             <div class="navigation arrow-right">
-            <img src="./img/arrow-right.png" onclick="nextPokemon()">
+            <img src="./img/arrow-right.png" style="background-color: ${backgroundColor};" onclick="nextPokemon()">
             </div>
             <div class="pokemonNameContainer">
                 <h1 id="pokemonName">${capitalizedPokemonName}</h1>
@@ -337,3 +329,27 @@ function loadMoves() {
     `;
 }
 
+
+function loadEvolutions() {
+    let currentPokemon = selectedPokemon;
+    const cardContainer = document.getElementById('card-container');
+    let evosHTML = '';
+
+    evosHTML += ``;
+
+    cardContainer.innerHTML = `
+    <div class="custom-scrollbar">
+        <div class="content-moves">
+            <ul class="list-group list-group-flush">
+                ${movesHTML}
+            </ul>
+        </div>
+    </div>
+    `;
+}
+
+
+function loadMorePokemon() {
+    firstPokemon += 10;
+    loadPokemon();
+}
