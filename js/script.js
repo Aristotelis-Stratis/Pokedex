@@ -27,7 +27,7 @@ const typeColors = {
 };
 
 async function loadPokemon() {
-    for (let i = firstPokemon + 1; i <= firstPokemon + 100; i++) {
+    for (let i = firstPokemon + 1; i <= firstPokemon + 40; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         let currentPokemon = await response.json();
@@ -350,7 +350,7 @@ function loadEvolutions() {
 
 
 function loadMorePokemon() {
-    firstPokemon += 100;
+    firstPokemon += 40;
     loadPokemon();
 }
 
@@ -383,4 +383,22 @@ document.addEventListener("DOMContentLoaded", function () {
             pokemonCard.removeChild(pokemonCard.firstChild);
         }
     }
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Zunächst verstecken wir das "top"-Bild beim Laden der Seite.
+    document.querySelector(".top-img").style.display = "none";
+
+    // Füge einen Event-Listener hinzu, um das Scrollen der Seite zu überwachen.
+    window.addEventListener("scroll", function () {
+        // Überprüfe, wie weit die Seite gescrollt wurde.
+        if (window.scrollY >= 100) {
+            // Wenn mehr als 100px gescrollt wurden, zeige das "top"-Bild an.
+            document.querySelector(".top-img").style.display = "block";
+        } else {
+            // Andernfalls verstecke es.
+            document.querySelector(".top-img").style.display = "none";
+        }
+    });
 });

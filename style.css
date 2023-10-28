@@ -406,7 +406,7 @@ body {
     background-color: grey;
     padding: 10px;
     flex: unset !important;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .col:hover {
@@ -475,6 +475,7 @@ body {
     justify-content: center;
     z-index: 999;
 }
+
 .pkmnIcon img {
     width: 400px;
     position: absolute;
@@ -569,13 +570,26 @@ body {
     font-weight: 500;
     font-size: 17px;
     color: lightgrey;
-
 }
 
+.backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 0px;
+    display: flex;
+    padding-right: 25px !important;
+    width: fit-content !important;
+}
+.top-img {
+    width: 50px;
+}
 @media (max-width: 1020px) {
     .pokedex-home {
         padding-left: 50px !important;
         padding-right: 50px !important;
+    }
+    .backToTop {
+        padding-right: 5px !important;
     }
 }
 
