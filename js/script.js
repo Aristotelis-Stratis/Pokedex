@@ -27,7 +27,7 @@ const typeColors = {
 };
 
 async function loadPokemon() {
-    for (let i = firstPokemon + 1; i <= firstPokemon + 10; i++) {
+    for (let i = firstPokemon + 1; i <= firstPokemon + 100; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         let currentPokemon = await response.json();
@@ -350,6 +350,37 @@ function loadEvolutions() {
 
 
 function loadMorePokemon() {
-    firstPokemon += 10;
+    firstPokemon += 100;
     loadPokemon();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+
+    searchInput.addEventListener("input", function () {
+        const searchTerm = searchInput.value.toLowerCase();
+        filterPokemonList(searchTerm);
+    });
+
+    function filterPokemonList(searchTerm) {
+        const filteredPokemon = allPokemonList.filter((pokemon) => {
+            const pokemonName = pokemon.name.toLowerCase();
+            return pokemonName.startsWith(searchTerm);
+        });
+
+        // Lösche zuerst alle vorhandenen Pokémon aus deiner Anzeige.
+        clearPokemonList();
+
+        // Zeige die gefilterten Pokémon an.
+        filteredPokemon.forEach((pokemon, index) => {
+            newRender(pokemon, firstPokemon + index + 1);
+        });
+    }
+
+    function clearPokemonList() {
+        const pokemonCard = document.getElementById('card-content');
+        while (pokemonCard.firstChild) {
+            pokemonCard.removeChild(pokemonCard.firstChild);
+        }
+    }
+});
