@@ -330,6 +330,7 @@ function loadMoves() {
 }
 
 
+
 function loadMorePokemon() {
     firstPokemon += 50;
     loadPokemon();
@@ -383,39 +384,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-// Überwache das Scroll-Ereignis der Seite.
-window.addEventListener("scroll", function () {
-    // Überprüfe, ob die Seite am unteren Ende ist.
-    if (isPageAtBottom()) {
-        // Lade die nächsten 20 Pokémon.
-        if (getLastLoadedPokemonNumber() < 1017) {
-            loadMorePokemon();
-        }
-    }
-});
-// Funktion, um die Nummer des zuletzt geladenen Pokémon zu erhalten.
-function getLastLoadedPokemonNumber() {
-    if (allPokemonList.length > 0) {
-        return allPokemonList[allPokemonList.length - 1].id;
-    } else {
-        return 0;
-    }
-}
-
-// Funktion, um zu überprüfen, ob die Seite am unteren Ende ist.
-function isPageAtBottom() {
-    // Erhalte die aktuelle Scroll-Position des Benutzers.
-    const scrollPosition = window.scrollY || window.pageYOffset;
-
-    // Erhalte die Höhe des gesamten Dokuments.
-    const documentHeight = document.body.scrollHeight;
-
-    // Erhalte die Höhe des sichtbaren Bereichs im Browserfenster.
-    const windowHeight = window.innerHeight;
-
-    // Überprüfe, ob die Scroll-Position fast am unteren Ende der Seite ist (hier 200px vor dem tatsächlichen Ende).
-    return scrollPosition + windowHeight >= documentHeight - 200;
-}
-
 
