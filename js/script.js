@@ -149,9 +149,6 @@ function createOverlayCardHTML(currentPokemon) {
                             <button class="nav-link-button" onclick="loadStats()">Base Stats</button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link-button" onclick="loadEvolutions()">Evolutions</button>
-                        </li>
-                        <li class="nav-item">
                             <button class="nav-link-button" onclick="loadMoves()">Moves</button>
                         </li>
                     </ul>
@@ -163,6 +160,7 @@ function createOverlayCardHTML(currentPokemon) {
     `;
 }
 
+
 // =========================== CLOSE OVERLAY ===========================
 function closeOverlay() {
     let overlayCard = document.getElementById('card-overlay');
@@ -170,6 +168,7 @@ function closeOverlay() {
     document.body.style.overflow = 'auto';
     overlayCard.innerHTML = '';
 }
+
 
 // =========================== NEXT POKEMON ===========================
 function nextPokemon() {
@@ -179,6 +178,7 @@ function nextPokemon() {
         renderOverlayPokemon(nextPokemon); // Anzeigen des nächsten Pokemons
     }
 }
+
 
 // =========================== PREVIOUS POKEMON ===========================
 function previousPokemon() {
@@ -307,8 +307,8 @@ function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL)
     </div>`;
 }
 
-// =========================== MOVES ===========================
 
+// =========================== MOVES ===========================
 function loadMoves() {
     let currentPokemon = selectedPokemon;
     const cardContainer = document.getElementById('card-container');
@@ -330,12 +330,12 @@ function loadMoves() {
 }
 
 
-
 function loadMorePokemon() {
     firstPokemon += 50;
     loadPokemon();
 }
 
+// =========================== SEARCH ===========================
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("searchInput");
 
@@ -367,7 +367,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
+// =========================== SCROLL UP ===========================
 document.addEventListener("DOMContentLoaded", function () {
     // Zunächst verstecken wir das "top"-Bild beim Laden der Seite.
     document.querySelector(".top-img").style.display = "none";
