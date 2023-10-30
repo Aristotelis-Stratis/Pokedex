@@ -34,7 +34,6 @@ async function loadPokemon() {
         allPokemonList.push(currentPokemon);
         newRender(currentPokemon, i);
     }
-    console.log('Loaded Pokemon', allPokemonList);
 }
 
 // =========================== RENDER ALL POKEMON===========================
@@ -42,46 +41,27 @@ function newRender(currentPokemon, i) {
     let pokemonCard = document.getElementById('card-content');
     const pokemonName = currentPokemon.name;
     const capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
-    const pokemonNumber = '#' + currentPokemon.id.toString().padStart(3, '0');
+    const pokemonNumber = `#${currentPokemon.id.toString().padStart(3, '0')}`;
     const typeOne = currentPokemon.types[0].type.name;
-    const typeTwo = currentPokemon.types[1] ? currentPokemon.types[1].type.name : '';
+    const typeTwo = currentPokemon.types[1]?.type.name;
     let backgroundColor = typeColors[typeOne].replace("1)", "0.85)") || "rgba(0, 0, 0, 1";
     const spriteURL = currentPokemon.sprites.other["official-artwork"].front_default;
 
-    const typeButtonsHTML = `
-    <button class="typeButton" style="background-color: ${typeColors[typeOne].replace("1)", "0.75)")}">${typeOne.charAt(0).toUpperCase() + typeOne.slice(1)}</button>
-    ${typeTwo ? `<button class="typeButton" style="background-color: ${typeColors[typeTwo].replace("1)", "0.75)")}">${typeTwo.charAt(0).toUpperCase() + typeTwo.slice(1)}</button>` : ''}
-    `;
+    const typeButtonsHTML = createTypeButtonsHTML(typeOne, typeTwo);
     const entry = document.createElement("div");
     entry.className = "col";
-    entry.setAttribute('data-index', i - 1); // Index beginnt bei 0
+    entry.setAttribute('data-index', i - 1);
     entry.id = `entry ${`#` + i}`;
     entry.style.backgroundColor = backgroundColor;
     entry.onclick = function () {
         renderOverlayPokemon(currentPokemon);
         document.getElementById('overlay').style.display = 'flex';
-        currentPokemonIndex = parseInt(this.getAttribute('data-index')); // Setze currentPokemonIndex auf den geklickten Index
+        currentPokemonIndex = parseInt(this.getAttribute('data-index'));
         renderOverlayPokemon(allPokemonList[currentPokemonIndex]);
         document.getElementById('overlay').style.display = 'flex';
     };
 
-    entry.innerHTML = `
-        <div class="colNameContainer">
-            <h2 id="pokemonName">${capitalizedPokemonName}</h2>
-            <div class="colNumberContainer">
-                <p class="colNumber" id="pokemonNumber">${pokemonNumber}</p>
-            </div>
-        </div>
-        <div class="colTypeContainer">
-        ${typeButtonsHTML}
-    </div>
-        <div class="colSpriteContainer">
-            <img id="pokemonSprite${i}" src="${spriteURL}">
-        </div>
-        <div class="pkmnIcon">
-            <img src="./img/pokeball_BG.png"">
-        </div>
-    `;
+    entry.innerHTML = createPokemonCardHTML(pokemonName, capitalizedPokemonName, pokemonNumber, typeButtonsHTML, spriteURL, i);
     pokemonCard.appendChild(entry);
 }
 
@@ -91,75 +71,7 @@ function renderOverlayPokemon(currentPokemon) {
     overlayCard.innerHTML = createOverlayCardHTML(currentPokemon);
     document.body.style.overflow = 'hidden';
     loadAbout();
-
 }
-
-function createOverlayCardHTML(currentPokemon) {
-    selectedPokemon = currentPokemon;
-    const pokemonName = currentPokemon.name;
-    const capitalizedPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
-    const pokemonNumber = '#' + currentPokemon.id.toString().padStart(3, '0');
-    const typeOne = currentPokemon.types[0].type.name;
-    const typeTwo = currentPokemon.types[1] ? currentPokemon.types[1].type.name : '';
-    const backgroundColorTypeOne = typeColors[typeOne].replace("1)", "0.75)") || "rgba(0, 0, 0, 1";
-    const backgroundColorTypeTwo = typeTwo ? (typeColors[typeTwo].replace("1)", "0.95)") || "rgba(0, 0, 0, 1") : '';
-    const backgroundColor = typeColors[typeOne].replace("1)", "0.85)") || "rgba(0, 0, 0, 1";
-    let overlayCard = document.getElementById('card-overlay');
-    overlayCard.style.border = `1px solid ${backgroundColor}`;
-    const spriteURL = currentPokemon.sprites.other["official-artwork"].front_default;
-
-    return `
-        <div id="pokedex" style="background-color: ${backgroundColor};">
-            <div class="close-nav">
-                <img src="./img/x.png"  onclick="closeOverlay()">
-            </div>
-            <div class="navigation arrow-left">
-            <img src="./img/arrow-left.png" style="background-color: ${backgroundColor};" onclick="previousPokemon()">
-            </div>
-            <div class="navigation arrow-right">
-            <img src="./img/arrow-right.png" style="background-color: ${backgroundColor};" onclick="nextPokemon()">
-            </div>
-            <div class="pokemonNameContainer">
-                <h1 id="pokemonName">${capitalizedPokemonName}</h1>
-                <div class="pokemonNumberContainer">
-                    <p class="pokemonNumber">${pokemonNumber}</p>
-                </div>
-            </div>
-            <div class="typeContainer">
-                <button class="typeButton" id="overlay_typeOne" style="background-color: ${backgroundColorTypeOne}">
-                    ${typeOne.charAt(0).toUpperCase() + typeOne.slice(1)}
-                </button>
-                ${typeTwo ? `
-                    <button class="typeButton" id="overlay_typeTwo" style="background-color: ${backgroundColorTypeTwo}">
-                        ${typeTwo.charAt(0).toUpperCase() + typeTwo.slice(1)}
-                    </button>` : ''}
-            </div>
-            <div class="pokemonSpriteContainer">
-                <img id="pokemonSprite" src="${spriteURL}">
-            </div>
-        </div>
-        <div class="info-container">
-            <div class="card text-center no-border c-black w-100">
-                <div class="card-header no-border bg-white">
-                    <ul class="nav nav-pills card-header-pills space-between bg-white">
-                        <li class="nav-item">
-                            <button class="nav-link-button" onclick="loadAbout()">About</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link-button" onclick="loadStats()">Base Stats</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link-button" onclick="loadMoves()">Moves</button>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-container" id="card-container">
-                </div>
-            </div>
-        </div>
-    `;
-}
-
 
 // =========================== CLOSE OVERLAY ===========================
 function closeOverlay() {
@@ -169,16 +81,14 @@ function closeOverlay() {
     overlayCard.innerHTML = '';
 }
 
-
 // =========================== NEXT POKEMON ===========================
 function nextPokemon() {
     if (currentPokemonIndex < allPokemonList.length - 1) {
-        currentPokemonIndex++; // Erhöhe den Index
+        currentPokemonIndex++;
         const nextPokemon = allPokemonList[currentPokemonIndex];
-        renderOverlayPokemon(nextPokemon); // Anzeigen des nächsten Pokemons
+        renderOverlayPokemon(nextPokemon);
     }
 }
-
 
 // =========================== PREVIOUS POKEMON ===========================
 function previousPokemon() {
@@ -188,54 +98,10 @@ function previousPokemon() {
     }
 }
 
-
 // =========================== ABOUT ===========================
-function templateAbout() {
-    let currentPokemon = selectedPokemon;
-    const height = currentPokemon.height / 10 + ' m';
-    const weight = currentPokemon.weight / 10 + ' kg';
-    const abilities = currentPokemon.abilities[0].ability.name;
-    return `
-        <div class="card-body">
-            <div class="pkmn-info info-left">
-                <p>Height</p>
-                <p>Weight</p>
-                <p>Abilities</p>
-            </div>
-            <div class="pkmn-info info-right">
-                <p>${height}</p>
-                <p>${weight}</p>
-                <p>${abilities.charAt(0).toUpperCase() + abilities.slice(1)}</p>                             
-            </div>
-        </div>
-        <div class="card-body-title">
-            <h2>Breeding</h2>
-        </div>
-        <div class="card-body">
-            <div class="pkmn-info info-left">
-                <p>Gender</p>
-                <p>Egg Groups</p>
-                <p>Egg Cycle</p>
-            </div>
-            <div class="pkmn-info info-right">
-                <div class="gender">
-                    <div class="gender-container"><img src="./img/male.png" alt="">
-                        <p>50%</p>
-                    </div>
-                    <div class="gender-container"><img src="./img/female.png" alt="">
-                        <p>50%</p>
-                    </div>
-                </div>
-                <p>Monster</p>
-                <p>${currentPokemon.types[0].type.name.charAt(0).toUpperCase() + currentPokemon.types[0].type.name.slice(1)}</p>
-            </div>
-        </div>
-    `;
-}
-
 function loadAbout() {
     const cardContainer = document.getElementById('card-container');
-    cardContainer.innerHTML = templateAbout();
+    cardContainer.innerHTML = templateAbout(selectedPokemon);
 }
 
 // =========================== STATS ===========================
@@ -251,62 +117,12 @@ function getPokemonStats() {
     return { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL };
 }
 
-
 function loadStats() {
     let stats = document.getElementById('card-container');
     stats.innerHTML = '';
     const { HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL } = getPokemonStats();
     stats.innerHTML = templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL);
 }
-
-
-function templateStats(HP, ATTACK, DEFENSE, SP_ATTACK, SP_DEFENSE, SPEED, TOTAL) {
-    return `
-    <div class="card-body">
-        <div class="pkmn-info info-left">
-            <p>HP</p>   
-            <p>Attack</p>   
-            <p>Defense</p>  
-            <p>Sp. Atk</p>  
-            <p>Sp. Def</p>  
-            <p>Speed</p>    
-            <p>Total</p>    
-        </div>
-        <div class="pkmn-info info-mid">
-            <p id="value_1">${HP}</p>
-            <p id="value_2">${ATTACK}</p>
-            <p id="value_3">${DEFENSE}</p>
-            <p id="value_4">${SP_ATTACK}</p>
-            <p id="value_5">${SP_DEFENSE}</p>
-            <p id="value_6">${SPEED}</p>
-            <p id="value_7">${TOTAL}</p>
-        </div>
-        <div class="pkmn-info info-values">
-            <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: ${(HP / 255) * 100}%" aria-valuenow="${HP}" aria-valuemin="0" aria-valuemax="255"></div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: ${(ATTACK / 255) * 100}%" aria-valuenow="${ATTACK}" aria-valuemin="0" aria-valuemax="255"></div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: ${(DEFENSE / 255) * 100}%" aria-valuenow="${DEFENSE}" aria-valuemin="0" aria-valuemax="255"></div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: ${(SP_ATTACK / 255) * 100}%" aria-valuenow="${SP_ATTACK}" aria-valuemin="0" aria-valuemax="255"></div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: ${(SP_DEFENSE / 255) * 100}%" aria-valuenow="${SP_DEFENSE}" aria-valuemin="0" aria-valuemax="255"></div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: ${(SPEED / 255) * 100}%" aria-valuenow="${SPEED}" aria-valuemin="0" aria-valuemax="255"></div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: ${(TOTAL / 720) * 100}%" aria-valuenow="${TOTAL}" aria-valuemin="0" aria-valuemax="720"></div>
-            </div>
-        </div>
-    </div>`;
-}
-
 
 // =========================== MOVES ===========================
 function loadMoves() {
@@ -316,7 +132,7 @@ function loadMoves() {
 
     for (let i = 0; i < currentPokemon.moves.length; i++) {
         let move = currentPokemon.moves[i].move.name;
-        movesHTML += ` <li class="list-group-item">${move.charAt(0).toUpperCase() + move.slice(1)}</li>`;
+        movesHTML += `<li class="list-group-item">${capitalizeFirstLetter(move)}</li>`;
     }
     cardContainer.innerHTML = `
     <div class="custom-scrollbar">
@@ -328,7 +144,6 @@ function loadMoves() {
     </div>
     `;
 }
-
 
 function loadMorePokemon() {
     firstPokemon += 50;
@@ -349,11 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const pokemonName = pokemon.name.toLowerCase();
             return pokemonName.startsWith(searchTerm);
         });
-
-        // Lösche zuerst alle vorhandenen Pokémon aus deiner Anzeige.
         clearPokemonList();
-
-        // Zeige die gefilterten Pokémon an.
         filteredPokemon.forEach((pokemon, index) => {
             newRender(pokemon, firstPokemon + index + 1);
         });
@@ -369,17 +180,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // =========================== SCROLL UP ===========================
 document.addEventListener("DOMContentLoaded", function () {
-    // Zunächst verstecken wir das "top"-Bild beim Laden der Seite.
     document.querySelector(".top-img").style.display = "none";
-
-    // Füge einen Event-Listener hinzu, um das Scrollen der Seite zu überwachen.
     window.addEventListener("scroll", function () {
-        // Überprüfe, wie weit die Seite gescrollt wurde.
         if (window.scrollY >= 100) {
-            // Wenn mehr als 100px gescrollt wurden, zeige das "top"-Bild an.
             document.querySelector(".top-img").style.display = "block";
         } else {
-            // Andernfalls verstecke es.
             document.querySelector(".top-img").style.display = "none";
         }
     });
